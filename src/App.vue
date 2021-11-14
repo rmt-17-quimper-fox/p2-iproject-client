@@ -10,7 +10,7 @@
 
 <fb:login-button 
   scope="public_profile,email"
-  onlogin="checkLoginState();">
+  onlogin="checkLoginState();" >
 </fb:login-button>
 
   </div>

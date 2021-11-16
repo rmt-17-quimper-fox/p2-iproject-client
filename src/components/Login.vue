@@ -51,7 +51,7 @@
                     />
                     </div>
                     <router-link 
-                    :to="{name : 'RegisterPage'}"
+                    :to="{name : 'Register'}"
                     @click.prevent="changePage('register')"
                     class="link-primary cursor-pointer"
                     id="register-here"
@@ -96,9 +96,6 @@ export default {
                 .catch(err => {
                     console.log(err);
                 })
-        },
-        changePage(){
-            this.$router.push({name : 'Register'})
         }
     }
 }

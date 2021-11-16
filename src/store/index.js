@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user : {},
-    isLogin : localStorage.access_token? true : false
+    isLogin : localStorage.access_token? true : false,
+    userRegister : {}
   },
   mutations: {
     LOGIN(state,payload){
@@ -14,6 +15,9 @@ export default new Vuex.Store({
     },
     SETLOGIN(state){
       state.isLogin = true
+    },
+    REGISTER(state,payload){
+      state.userRegister = payload
     }
   },
   actions: {
@@ -23,6 +27,14 @@ export default new Vuex.Store({
         method : 'POST',
         url : '/login',
         data : user
+      })
+    },
+    register(context){
+      const userRegister = context.state.userRegister
+      return axios({
+        method : 'POST',
+        url : '/register',
+        data : userRegister
       })
     }
   },

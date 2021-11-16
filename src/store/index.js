@@ -8,7 +8,9 @@ export default new Vuex.Store({
     user : {},
     isLogin : localStorage.access_token? true : false,
     userRegister : {},
-    listRoom : []
+    listRoom : [],
+    joinRoomId : '',
+    passwordRoom : ''
   },
   mutations: {
     LOGIN(state,payload){
@@ -25,6 +27,10 @@ export default new Vuex.Store({
     },
     FETCHROOM(state,payload){
       state.listRoom = payload
+    },
+    JOINROOM(state,payload){
+      state.joinRoomId = payload.value
+      state.passwordRoom = payload.password
     }
   },
   actions: {
@@ -53,7 +59,7 @@ export default new Vuex.Store({
         url : '/rooms',
         headers : {
           access_token : localStorage.access_token
-        }
+        },
       })
       .then(response => {
         console.log(response);
@@ -63,6 +69,19 @@ export default new Vuex.Store({
       })
       .catch(err => {
         console.log(err.response);
+      })
+    },
+    joinRoom(context){
+      console.log('masuk');
+      const joinRoomId = +context.state.joinRoomId
+      console.log(joinRoomId);
+      return axios({
+        method : 'POST',
+        url : `/rooms/${joinRoomId}`,
+        headers : {
+          access_token : localStorage.access_token
+        },
+        data : {passwordRoom : context.state.passwordRoom}
       })
     }
   },

@@ -10,7 +10,8 @@ export default new Vuex.Store({
     userRegister : {},
     listRoom : [],
     joinRoomId : '',
-    passwordRoom : ''
+    passwordRoom : '',
+    roomCreated : {}
   },
   mutations: {
     LOGIN(state,payload){
@@ -31,6 +32,9 @@ export default new Vuex.Store({
     JOINROOM(state,payload){
       state.joinRoomId = payload.value
       state.passwordRoom = payload.password
+    },
+    CREATEROOM(state,payload){
+      state.roomCreated = payload
     }
   },
   actions: {
@@ -82,6 +86,17 @@ export default new Vuex.Store({
           access_token : localStorage.access_token
         },
         data : {passwordRoom : context.state.passwordRoom}
+      })
+    },
+    createRoom(context){
+      const createdRoom = context.state.roomCreated
+      return axios({
+        method : 'POST',
+        url : '/rooms',
+        headers : {
+          access_token : localStorage.access_token
+        },
+        data : createdRoom
       })
     }
   },

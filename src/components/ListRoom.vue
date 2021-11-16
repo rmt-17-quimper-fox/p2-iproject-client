@@ -61,10 +61,6 @@ export default {
             return {password: password }
           }
         })
-
-
-
-       
       }
     },
     created(){

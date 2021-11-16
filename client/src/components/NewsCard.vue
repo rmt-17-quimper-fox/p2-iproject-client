@@ -21,7 +21,20 @@
 <script>
 export default {
     name: "NewsCard",
-    props: [ "news" ]
+    props: [ "news" ],
+    method:{
+      postBookmark(){
+        const payload = {
+          title: this.news.title,
+          imageUrl: this.news.urlToImage,
+          description: this.news.description,
+          link: this.news.url,
+        }
+        console.log(payload, 'payload')
+        // this.$store.dispatch('postBookmark', payload)
+
+      }
+    }
 };
 </script>
 

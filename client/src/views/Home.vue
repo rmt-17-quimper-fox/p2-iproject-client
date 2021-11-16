@@ -104,7 +104,7 @@ export default {
       }
   },
   created(){
-    this.fetchNewsList()
+    // this.fetchNewsList()
   }
 }
 </script>

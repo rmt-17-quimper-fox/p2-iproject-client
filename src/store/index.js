@@ -18,6 +18,9 @@ export default new Vuex.Store({
     },
     REGISTER(state,payload){
       state.userRegister = payload
+    },
+    SET_LOGOUT(state){
+      state.isLogin = false
     }
   },
   actions: {
@@ -36,7 +39,10 @@ export default new Vuex.Store({
         url : '/register',
         data : userRegister
       })
-    }
+    },
+    logoutUser(context){
+      context.commit("SET_LOGOUT")
+    },
   },
   modules: {
   }

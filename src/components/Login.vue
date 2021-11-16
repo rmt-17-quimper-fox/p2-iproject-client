@@ -92,6 +92,7 @@ export default {
                     const access_token = response.data.access_token
                     localStorage.setItem("access_token", access_token)
                     this.$store.commit('SETLOGIN')
+                    this.$router.push({name : 'Home'})
                 })
                 .catch(err => {
                     console.log(err);

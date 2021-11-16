@@ -1,19 +1,28 @@
 <template>
-   <nav class="py-3 bg-gray-900 navbar-color">
-      <div class="flex-1 flex items-center justify-center">
-        <div class="flex-shrink-0 flex items-center">
-          <span class="text-white opacity-80 text-2xl uppercase">Find Me App</span>
-        </div>
-        <div class="hidden sm:block sm:ml-6">
-          <div class="flex space-x-4 align-middle">
-            <a href="#" class="text-white opacity-80 text-md uppercase hover:opacity-100 px-3 py-2" @click="changePage('Home')">Home</a>
-            <a href="#" class="text-white opacity-80 text-md uppercase hover:opacity-100 px-3 py-2" @click="changePage('ListRoom')">List Room</a>
-            <a href="#" class="text-white opacity-80 text-md uppercase hover:opacity-100 px-3 py-2" @click="changePage('FormCreate')">Create Room</a>
-            <a href="#" class="text-white opacity-80 text-md uppercase hover:opacity-100 px-3 py-2" >Log out</a>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">FindMe App</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" @click="changePage('Home')">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" @click="changePage('ListRoom')">List Room</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" @click="changePage('FormCreate')">Form Create Room</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" @click="logout">Sign Out</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 </template>
 
 <script>
@@ -22,6 +31,11 @@ export default {
     methods : {
         changePage(value){
             this.$router.push({name : value})
+        },
+        logout(){
+          localStorage.clear();
+          this.$store.dispatch("logoutUser");
+          this.$router.push({ name: "Login" });
         }
     }
 }

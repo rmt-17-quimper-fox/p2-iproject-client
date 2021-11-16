@@ -43,8 +43,38 @@
 <script>
 export default {
     name : 'Register',
+    data : function(){
+        return {
+            username : '',
+            email : '',
+            password : '',
+            address : '',
+            phoneNumber : ''
+        }
+    },
     methods : {
-        
+        cancel(){
+            this.$router.push({name: 'Login'})
+        },
+        registerUser(){
+            const registUser = {
+                username : this.username,
+                email : this.email,
+                password : this.password,
+                address : this.address,
+                phoneNumber : this.phoneNumber
+            }
+
+            this.$store.commit('REGISTER', registUser)
+            this.$store.dispatch('register')
+                .then(response => {
+                    console.log(response);
+                    this.$router.push({name : "Login"})
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
     }
 }
 </script>

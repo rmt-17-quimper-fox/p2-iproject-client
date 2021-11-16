@@ -28,7 +28,8 @@ export default new Vuex.Store({
         url: 'https://newsapi.org/v2/top-headlines',
         params:{
           apiKey: '59f5d55a2cfa4c95b4966189fd0698a7',
-          country: 'us'
+          country: 'us',
+          pageSize: 11
         }
       })
     }

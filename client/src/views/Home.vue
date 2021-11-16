@@ -20,26 +20,11 @@
                     <!-- Nested row for non-featured News posts-->
                     <div class="row">
                         <div class="d-flex flex-wrap">
-                            <!-- News post-->
-                            <div class="card mb-4 mx-1" style="width:25rem">
-                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">January 1, 2021</div>
-                                    <h2 class="card-title h4">News Title</h2>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                    <a class="btn btn-primary" href="#!">Read more →</a>
-                                </div>
-                            </div>
-                            <!-- News post-->
-                            <div class="card mb-4 mx-1" style="width:25rem">
-                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">January 1, 2021</div>
-                                    <h2 class="card-title h4">News Title</h2>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                    <a class="btn btn-primary" href="#!">Read more →</a>
-                                </div>
-                            </div>
+                            <news-card
+                            v-for="(news, index) in newsData"
+                            :key="index"
+                            :news="news"
+                            ></news-card>
                         </div>
                     </div>
                     
@@ -88,15 +73,20 @@
 // @ is an alias to /src
 import Navbar from '@/components/Navbar.vue'
 import FeaturedNews from '@/components/FeaturedNews.vue'
+import NewsCard from '@/components/NewsCard.vue'
 export default {
   name: 'Home',
   components: {
     Navbar,
-    FeaturedNews
+    FeaturedNews,
+    NewsCard
   },
   computed:{
       featuredNews(){
           return this.$store.state.featuredNews
+      },
+      newsData(){
+          return this.$store.state.newsData
       }
   },
   methods:{

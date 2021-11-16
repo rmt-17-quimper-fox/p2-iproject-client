@@ -10,7 +10,7 @@
 
 <script>
 // import L from 'leaflet';
-import axios from 'axios'
+import axios from '../config/axios'
 import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
 export default {
     name : 'Room',
@@ -59,7 +59,7 @@ export default {
         getUsers(){
             axios({
                 method : 'GET',
-                url : 'http://localhost:3000/rooms/room/6',
+                url : '/rooms/room/6',
                 headers : {access_token : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJhbGRpQG1haWwuY29tIiwiaWF0IjoxNjM3MDU5MjE5fQ.G18ZEeZIDy74ZMp--2HtuSRg7tdm055M_FsdrCg8d5c'}
             })
             .then(response => {

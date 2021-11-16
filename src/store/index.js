@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     user : {},
     isLogin : localStorage.access_token? true : false,
-    userRegister : {}
+    userRegister : {},
+    listRoom : []
   },
   mutations: {
     LOGIN(state,payload){
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     },
     SET_LOGOUT(state){
       state.isLogin = false
+    },
+    FETCHROOM(state,payload){
+      state.listRoom = payload
     }
   },
   actions: {
@@ -43,6 +47,24 @@ export default new Vuex.Store({
     logoutUser(context){
       context.commit("SET_LOGOUT")
     },
+    fetchRoom(context){
+      axios({
+        method : 'GET',
+        url : '/rooms',
+        headers : {
+          access_token : localStorage.access_token
+        }
+      })
+      .then(response => {
+        console.log(response);
+        const listRoom = response.data
+        context.commit('FETCHROOM', listRoom)
+
+      })
+      .catch(err => {
+        console.log(err.response);
+      })
+    }
   },
   modules: {
   }

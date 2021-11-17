@@ -1,5 +1,4 @@
 <template>
-<!-- Register Form -->
 <div class="container" style="font-size:xx-medium">
     <div class="row mt-5"></div>
     <div class="row mt-5"></div>
@@ -42,7 +41,6 @@
         </div>
     </div>
 </div>
-<!-- Register Form -->  
 </template>
 
 <script>

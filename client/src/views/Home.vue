@@ -58,6 +58,7 @@
                     <div class="card mb-4">
                         <div class="card-header">Chat</div>
                         <div class="card-body">Probably socket.io</div>
+                        
                     </div>
                 </div>
             </div>
@@ -105,6 +106,9 @@ export default {
   },
   created(){
     this.fetchNewsList()
+    if(localStorage.getItem('access_token')){
+        this.$store.commit("SET_IS_LOGIN", true)
+      }
   }
 }
 </script>

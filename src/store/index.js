@@ -52,7 +52,11 @@ export default new Vuex.Store({
     fetchParties(context) {
       return new Promise((resolve, reject) => {
         axios({
-          url: "/parties",
+          url: "/party",
+          method: "GET",
+          headers: {
+            access_token: localStorage.access_token,
+          },
         })
           .then(({ data }) => {
             context.commit("SET_PARTIS", data);

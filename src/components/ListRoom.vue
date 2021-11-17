@@ -15,7 +15,7 @@
               <td>{{room.name}}</td>
               <td>
                   <button class="btn btn-primary mx-3" @click="joinRoom(room.id)">Join Room</button>
-                  <button class="btn btn-danger">Delete Room</button>
+                  <button v-if="room.UserId == userId" class="btn btn-danger" @click="deleteRoom(room.id)">Delete Room</button>
               </td>
             </tr>
           </tbody>
@@ -33,6 +33,9 @@ export default {
     computed : {
       rooms(){
         return this.$store.state.listRoom
+      },
+      userId(){
+        return this.$store.state.userId
       }
     },
     methods : {
@@ -62,6 +65,9 @@ export default {
             return {password: password }
           }
         })
+      },
+      deleteRoom(roomId){
+        this.$store.dispatch('deleteRoom', roomId)
       }
     },
     created(){

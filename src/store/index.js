@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user : {},
+    userId : localStorage.userId ? localStorage.userId : '',
     isLogin : localStorage.access_token? true : false,
     userRegister : {},
     listRoom : [],
@@ -15,13 +16,15 @@ export default new Vuex.Store({
     usersInRoom : [],
     roomId : '',
     coordinateUser : []
+
   },
   mutations: {
     LOGIN(state,payload){
       state.user = payload
     },
-    SETLOGIN(state){
+    SETLOGIN(state,payload){
       state.isLogin = true
+      state.userId = payload
     },
     REGISTER(state,payload){
       state.userRegister = payload
@@ -147,6 +150,22 @@ export default new Vuex.Store({
           latitude : context.state.coordinateUser[0],
           longitude : context.state.coordinateUser[1]
         }
+      })
+    },
+    deleteRoom(context, payload){
+      axios({
+        method : 'DELETE',
+        url : `/rooms/${payload}`,
+        headers : {
+          access_token : localStorage.access_token
+        }
+      })
+      .then(response => {
+        console.log(response.data);
+        context.dispatch('fetchRoom')
+      })
+      .catch(err =>{
+        console.log(err.response);
       })
     }
   },

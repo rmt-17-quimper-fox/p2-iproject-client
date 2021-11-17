@@ -1,9 +1,14 @@
 <template>
-   <section id="register-form" class="wrapper vh-200" >
-    <div class="container d-flex justify-content-center align-items-center h-100">
-        <div  class="col-12" >
-            <form action="" method="post" @submit.prevent = "registerUser"> 
-              <div>
+      <div>
+    <section id="form-login" class="wrapper vh-100">
+      <div
+        class="container d-flex justify-content-center align-items-center h-100 "
+      >
+        <div class="card mb-3 shadow p-3 mb-5 bg-body rounded" style="width: 540px">
+         <form action="" method="post" @submit.prevent = "registerUser"> 
+            
+              <div class="px-3 card-body">
+                <h5 class="card-title">Register User</h5>
                 <div class="form-group">
                   <label for="">Input Your Username:</label> <br>
                   <input v-model = "username" class="form-control" type="text" name="username" id="register-user" placeholder="username.." required> <br>
@@ -25,19 +30,15 @@
                   <input v-model = "address" class="form-control" type="text" name="address" id="register-address" placeholder="Bandung St.." required> 
                 </div>
               </div>
-              <button class="btn btn-primary ml-2"  type="submit" value="Register"
-              
-              >
-                  <!-- <span v-if= "loading">Wait for register</span>
-                  <span v-if = '!loading'> -->
-                      Register
-                  <!-- </span> -->
-              </button>
-              <input @click.prevent = "cancel" class="btn btn-secondary ml-2"  type="submit" value="Cancel"> 
+              <div class="px-3 mb-3">
+                <button class="btn btn-primary ml-2 mx-2"  type="submit" value="Register">Register   </button>
+                <input @click.prevent = "cancel" class="btn btn-secondary ml-2"  type="submit" value="Cancel"> 
+              </div>
             </form>
         </div>
-    </div>
-  </section>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>

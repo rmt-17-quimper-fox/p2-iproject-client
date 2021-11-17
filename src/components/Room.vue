@@ -1,40 +1,73 @@
 <template>
-  <div>
+  <div class="row mt-5 ml-3">
+      <div class="border p-2 pl-4 mx-0 col-2" style="max-height : 100vh; height : 100vh; overflow-y: auto">
+          <h3>List of Users</h3>
+          <div v-for="(data, index) in insertLocation" :key="index" class="card my-2" @click="moveToUser(data.location)" style="cursor:pointer">
+            <div class="card-body cursor pointer">
+                <h5 class="card-title m-0 p-0">{{data.email}}</h5>
+                
+                <p class="card-text m-0 p-0">{{data.weather.city_name}}</p>
+            </div>
+        </div>
+      </div>
+    <div class="mx-0 col-10 p-0">
+      <l-map style="height: 100vh" :zoom="zoom" :center="center">
+        <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
+        <l-marker
+          v-for="(data, index) in insertLocation"
+          :key="index"
+          :lat-lng="data.location"
+        >
+          <l-icon
+            :icon-size="[64, 64 * 1.15]"
+            :icon-anchor="[32, 64 * 1.15]"
+            :icon-url="`https://avatars.dicebear.com/api/adventurer/${data.email}.svg`"
+          />
+          <l-tooltip>
+            {{ data.email }}
+            <!-- <img :src="`https://avatars.dicebear.com/api/adventurer/${data.email}.svg`" alt=""> -->
+          </l-tooltip>
+          <l-popup>
+            <div class="weather">
+              <img
+                :src="`https://www.weatherbit.io/static/img/icons/${data.weather.weather.icon}.png`"
+                alt=""
+              />
+              <div class="weather-content">
+                <p>{{ data.email }}</p>
+                <img
+                  style="width: 50px"
+                  :src="`https://avatars.dicebear.com/api/adventurer/${data.email}.svg`"
+                  alt=""
+                />
 
-    <l-map style="height: 80vh" :zoom="zoom" :center="center">
-      <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-      <l-marker
-        v-for="(data, index) in insertLocation"
-        :key="index"
-        :lat-lng="data.location"
-      >
-      <l-tooltip>
-          {{data.email}}
-          <img :src="`https://avatars.dicebear.com/api/adventurer/${data.email}.svg`" alt="">
-      </l-tooltip>
-      <l-popup>
-          <div class="weather">
-           <img  :src="`https://www.weatherbit.io/static/img/icons/${data.weather.weather.icon}.png`" alt="">
-                <div class = 'weather-content'>
-                    <p>{{data.email}}</p>
-                    <img style="width : 50px" :src="`https://avatars.dicebear.com/api/adventurer/${data.email}.svg`" alt="">
-
-                    <p>{{data.weather.weather.description}}</p>
-                    <p>{{data.weather.city_name}} {{data.weather.country_code}}<p>
-                    <p>{{data.weather.timezone}}</p>
-                    <p>temperature : {{data.weather.temp}}°C</p>
-                </div>
-          </div>
-      </l-popup>
-      </l-marker>
-    </l-map>
+                <p>{{ data.weather.weather.description }}</p>
+                <p>
+                  {{ data.weather.city_name }} {{ data.weather.country_code }}
+                </p>
+                <p></p>
+                <p>{{ data.weather.timezone }}</p>
+                <p>temperature : {{ data.weather.temp }}°C</p>
+              </div>
+            </div>
+          </l-popup>
+        </l-marker>
+      </l-map>
+    </div>
   </div>
 </template>
 
 <script>
 // import L from 'leaflet';
 // import axios from '../config/axios'
-import { LMap, LTileLayer, LMarker, LTooltip, LPopup} from "vue2-leaflet";
+import {
+  LMap,
+  LTileLayer,
+  LMarker,
+  LTooltip,
+  LPopup,
+  LIcon,
+} from "vue2-leaflet";
 export default {
   name: "Room",
   components: {
@@ -42,7 +75,8 @@ export default {
     LTileLayer,
     LMarker,
     LTooltip,
-    LPopup
+    LPopup,
+    LIcon,
   },
   computed: {
     getUsers() {
@@ -52,20 +86,19 @@ export default {
       //     return [user.User.latitude, user.User.longitude]
       // })
     },
-    insertLocation(){
-         return this.$store.state.usersInRoom.map((el) => {
+    insertLocation() {
+      return this.$store.state.usersInRoom.map((el) => {
         //   return [el.User.latitude, el.User.longitude];
-            return {
-                location : [el.User.latitude, el.User.longitude],
-                weather : el.Weather,
-                email : el.User.email
-            }
-        });
+        return {
+          location: [el.User.latitude, el.User.longitude],
+          weather: el.Weather,
+          email: el.User.email,
+        };
+      });
     },
     getRoomId() {
       return this.$store.state.joinRoomId;
     },
-
   },
   data: function () {
     return {
@@ -100,44 +133,55 @@ export default {
         // this.users = this.getUsers.map((el) => {
         //   return [el.User.latitude, el.User.longitude];
         // });
-        const coordinates = [+pos.coords.latitude, +pos.coords.longitude]
-        this.$store.commit('GETLOCATION', coordinates)
-        this.$store.dispatch('updateLocation')
-            .then(response => {
-                console.log(response, "updateLocation");
-                this.$store.dispatch("getUsersRoom")
-            })
-            .catch(err => {
-                console.log(err.response.data);
-            })
-
+        const coordinates = [+pos.coords.latitude, +pos.coords.longitude];
+        this.$store.commit("GETLOCATION", coordinates);
+        this.$store
+          .dispatch("updateLocation")
+          .then((response) => {
+            console.log(response, "updateLocation");
+            this.$store.dispatch("getUsersRoom");
+          })
+          .catch((err) => {
+            console.log(err.response.data);
+          });
       });
+    },
+    moveToUser(location){
+        this.center = location
+        this.zoom = 10
     }
   },
   created() {
-    if(this.getRoomId.length == 0){
-        this.$router.push({name : 'Home'})
+    if (this.getRoomId.length == 0) {
+      this.$router.push({ name: "Home" });
     }
     this.getCurrentLocation();
     // this.userLocation()
-
   },
 };
 </script>
 
 <style>
-.weather-content p{
-    margin: 0;
-    padding: 0;
-    font-size: 12px;
+
+::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
 }
-.weather-content h4{
-    margin: 0;
-    padding: 0;
+/* Optional: show position indicator in red */
+
+.weather-content p {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
 }
-.weather{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;    
-}</style>
+.weather-content h4 {
+  margin: 0;
+  padding: 0;
+}
+.weather {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+</style>

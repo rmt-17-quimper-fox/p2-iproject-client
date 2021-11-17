@@ -1,10 +1,7 @@
 <template>
   <div class="card mb-4">
     <a :href="featuredNews.url"
-      ><img
-        class="card-img-top"
-        :src="featuredNews.urlToImage"
-        alt="..."
+      ><img class="card-img-top" :src="featuredNews.urlToImage" alt="..."
     /></a>
     <div class="card-body">
       <div class="small text-muted">{{ featuredNews.publishedAt }}</div>
@@ -12,19 +9,41 @@
       <p class="card-text">
         {{ featuredNews.description }}
       </p>
-      <a class="btn btn-primary" href="#!">Save to bookmark</a>
+      <a class="btn btn-primary" href="" @click.prevent="postBookmark" v-if="isLoggedIn === true" >Save to bookmark</a>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-    name: "FeaturedNews",
-    computed:{
-      featuredNews(){
-        return this.$store.state.featuredNews
-      }
+  name: "FeaturedNews",
+  computed: {
+    featuredNews() {
+      return this.$store.state.featuredNews;
+    },
+    isLoggedIn(){
+      return this.$store.state.isLogin
     }
+  },
+  methods: {
+    postBookmark() {
+      const payload = {
+        title: this.news.title,
+        imageUrl: this.news.urlToImage,
+        description: this.news.description,
+        link: this.news.url,
+      };
+      console.log(payload);
+      this.$store
+        .dispatch("postBookmark", payload)
+        .then(() => {
+          this.$swal("Bookmark successfully added");
+        })
+        .catch((err) => {
+          this.$swal(err.response);
+        });
+    },
+  },
 };
 </script>
 

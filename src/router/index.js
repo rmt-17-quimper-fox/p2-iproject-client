@@ -11,6 +11,10 @@ const routes = [
   },
   {
     path: "/home",
+    redirect: "/home/lobby",
+  },
+  {
+    path: "/home",
     name: "Home",
     component: Home,
     beforeEnter(to, from, next) {
@@ -22,8 +26,6 @@ const routes = [
     },
     children: [
       {
-        // UserProfile will be rendered inside User's <router-view>
-        // when /user/:id/profile is matched
         path: "profile",
         component: () => import("../views/Profile.vue"),
       },
@@ -31,6 +33,16 @@ const routes = [
         path: "createParty",
         name: "CreateParty",
         component: () => import("../views/PartyForm.vue"),
+      },
+      {
+        path: "lobby",
+        name: "Lobby",
+        component: () => import("../views/Lobby.vue"),
+      },
+      {
+        path: "myparties",
+        name: "MyParties",
+        component: () => import("../views/MyParties.vue"),
       },
     ],
   },

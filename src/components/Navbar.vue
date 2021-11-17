@@ -1,8 +1,8 @@
 <template>
   <nav class="d-flex justify-content-between mx-5 pt-4 fs-3">
     <div class="d-flex justify-content-around">
-      <a @click.prevent="toHome" class="mx-4" href="">Home</a>
-      <a class="mx-4" href="">My Parties</a>
+      <a @click.prevent="toLobby" class="mx-4" href="">Lobby</a>
+      <a @click.prevent="toMyParties" class="mx-4" href="">My Parties</a>
       <a @click.prevent="toProfile" class="mx-4" href="">My Profile</a>
       <a @click.prevent="toCreateParty" class="mx-4" href="">+ Create Party</a>
     </div>
@@ -21,11 +21,14 @@ export default {
     toProfile() {
       this.$router.push("/home/profile").catch(() => {});
     },
-    toHome() {
-      this.$router.push("/home").catch(() => {});
+    toLobby() {
+      this.$router.push("/home/lobby").catch(() => {});
     },
     toCreateParty() {
       this.$router.push("/home/createParty").catch(() => {});
+    },
+    toMyParties() {
+      this.$router.push("/home/myparties").catch(() => {});
     },
   },
 };

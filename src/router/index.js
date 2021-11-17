@@ -27,6 +27,11 @@ const routes = [
         path: "profile",
         component: () => import("../views/Profile.vue"),
       },
+      {
+        path: "createParty",
+        name: "CreateParty",
+        component: () => import("../views/PartyForm.vue"),
+      },
     ],
   },
   {

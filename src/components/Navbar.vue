@@ -4,7 +4,7 @@
       <a @click.prevent="toHome" class="mx-4" href="">Home</a>
       <a class="mx-4" href="">My Parties</a>
       <a @click.prevent="toProfile" class="mx-4" href="">My Profile</a>
-      <a @click.prevent="toProfile" class="mx-4" href="">+ Create Party</a>
+      <a @click.prevent="toCreateParty" class="mx-4" href="">+ Create Party</a>
     </div>
     <a href="" @click.prevent="logout" class="nav-item">logout</a>
   </nav>
@@ -19,10 +19,13 @@ export default {
       this.$router.push({ name: "Login" });
     },
     toProfile() {
-      this.$router.push("/home/profile");
+      this.$router.push("/home/profile").catch(() => {});
     },
     toHome() {
-      this.$router.push("/home");
+      this.$router.push("/home").catch(() => {});
+    },
+    toCreateParty() {
+      this.$router.push("/home/createParty").catch(() => {});
     },
   },
 };

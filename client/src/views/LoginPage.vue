@@ -1,5 +1,4 @@
 <template>
-<!-- Login Form -->
 <div class="container" style="font-size:xx-medium">
     <div class="row mt-5">
     <div class="row mt-5"></div>
@@ -26,7 +25,7 @@
                         </div>
                     </div>
                     <div class="row mt-5">
-                        <router-link class="link-primary" to="/register">Forgot password ?</router-link>
+                        <router-link class="link-primary" to="/forgetpassword">Forgot password ?</router-link>
                         <p class="mt-3">Haven't an account yet ? <router-link class="link-primary" to="/register">Register</router-link> </p>
                     </div>
                 </form>
@@ -39,7 +38,6 @@
         </div>
     </div>
 </div>
-<!-- Login Form -->
 </template>
 
 <script>

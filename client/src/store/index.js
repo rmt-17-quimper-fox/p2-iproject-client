@@ -31,6 +31,20 @@ export default new Vuex.Store({
         url: '/login',
         data: loginData
       })
+    },
+    retrivePassword(_, email) {
+      return axios({
+        method: 'POST',
+        url: '/forgotpassword',
+        data: { email }
+      })
+    },
+    resetPassword(_, payload) {
+      return axios({
+        method: 'PATCH',
+        url: '/resetpassword',
+        data: payload
+      })
     }
   },
   modules: {

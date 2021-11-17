@@ -1,28 +1,48 @@
 <template>
   <div>
-    <h1>Room</h1>
-    <l-map style="height: 300px" :zoom="zoom" :center="center">
+
+    <l-map style="height: 80vh" :zoom="zoom" :center="center">
       <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
       <l-marker
-        v-for="(location, index) in insertLocation"
+        v-for="(data, index) in insertLocation"
         :key="index"
-        :lat-lng="location"
-      ></l-marker>
+        :lat-lng="data.location"
+      >
+      <l-tooltip>
+          {{data.email}}
+          <img :src="`https://avatars.dicebear.com/api/adventurer/${data.email}.svg`" alt="">
+      </l-tooltip>
+      <l-popup>
+          <div class="weather">
+           <img  :src="`https://www.weatherbit.io/static/img/icons/${data.weather.weather.icon}.png`" alt="">
+                <div class = 'weather-content'>
+                    <p>{{data.email}}</p>
+                    <img style="width : 50px" :src="`https://avatars.dicebear.com/api/adventurer/${data.email}.svg`" alt="">
+
+                    <p>{{data.weather.weather.description}}</p>
+                    <p>{{data.weather.city_name}} {{data.weather.country_code}}<p>
+                    <p>{{data.weather.timezone}}</p>
+                    <p>temperature : {{data.weather.temp}}°C</p>
+                </div>
+          </div>
+      </l-popup>
+      </l-marker>
     </l-map>
-    <button @click="leave">Leave Room</button>
   </div>
 </template>
 
 <script>
 // import L from 'leaflet';
 // import axios from '../config/axios'
-import { LMap, LTileLayer, LMarker } from "vue2-leaflet";
+import { LMap, LTileLayer, LMarker, LTooltip, LPopup} from "vue2-leaflet";
 export default {
   name: "Room",
   components: {
     LMap,
     LTileLayer,
     LMarker,
+    LTooltip,
+    LPopup
   },
   computed: {
     getUsers() {
@@ -34,12 +54,18 @@ export default {
     },
     insertLocation(){
          return this.$store.state.usersInRoom.map((el) => {
-          return [el.User.latitude, el.User.longitude];
+        //   return [el.User.latitude, el.User.longitude];
+            return {
+                location : [el.User.latitude, el.User.longitude],
+                weather : el.Weather,
+                email : el.User.email
+            }
         });
     },
     getRoomId() {
       return this.$store.state.joinRoomId;
     },
+
   },
   data: function () {
     return {
@@ -86,26 +112,32 @@ export default {
             })
 
       });
-    },
-    leave() {
-      console.log(this.getRoomId);
-      this.$store.commit("LEAVEROOM", this.getRoomId);
-      this.$store
-        .dispatch("leaveRoom")
-        .then((response) => {
-          console.log(response);
-          this.$router.push({ name: "ListRoom" });
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
-    },
+    }
   },
   created() {
+    if(this.getRoomId.length == 0){
+        this.$router.push({name : 'Home'})
+    }
     this.getCurrentLocation();
     // this.userLocation()
+
   },
 };
 </script>
 
-<style></style>
+<style>
+.weather-content p{
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+}
+.weather-content h4{
+    margin: 0;
+    padding: 0;
+}
+.weather{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;    
+}</style>

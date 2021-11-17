@@ -1,36 +1,78 @@
 <template>
-    <div class="wrapper">
-        <div class="input-box">
-        <div class="tweet-area">
-            <span class="placeholder">What's happening?</span>
-            <div class="input editable" contenteditable="true" spellcheck="false"></div>
-            <div class="input readonly" contenteditable="true" spellcheck="false"></div>
-        </div>
-        <div class="privacy">
-            <i class="fas fa-globe-asia"></i>
-            <span>Everyone can reply</span>
-        </div>
-        </div>
-        <div class="bottom">
-        <ul class="icons">
-            <li><i class="uil uil-capture"></i></li>
-            <li><i class="far fa-file-image"></i></li>
-            <li><i class="fas fa-map-marker-alt"></i></li>
-            <li><i class="far fa-grin"></i></li>
-            <li><i class="far fa-user"></i></li>
-        </ul>
-        <div class="content">
-            <span class="counter">100</span>
-            <button>Tweet</button>
-        </div>
+
+
+    <div class="container mt-4 mb-5">
+        <div class="d-flex justify-content-center row">
+            <div class="col-md-8">
+                <div class="feed p-2">
+                    <div class="d-flex flex-row justify-content-between align-items-center ">
+                        
+                        <PostTweet></PostTweet>
+                        <div class="feed-icon px-2"><i class="fa fa-long-arrow-up text-black-50"></i></div>
+                    </div>
+                    <div class="bg-white border mt-2"
+                        
+                        v-for="tweet in tweets"
+                        :key="tweet.id">
+                        <div>
+                            <div class="d-flex flex-row justify-content-between align-items-center p-2 border-bottom">
+                                <div class="d-flex flex-row align-items-center feed-text px-2"><img class="rounded-circle" src="https://i.imgur.com/aoKusnD.jpg" width="45">
+                                    <div class="d-flex flex-column flex-wrap ml-2">
+                                        <span class="font-weight-bold">{{tweet.User.firstName}} {{tweet.User.lastName}}</span>
+                                        <span class="text-black-50 time"></span>
+                                    </div>
+                                </div>
+                                <div class="feed-icon px-2">
+                                    <i class="fa fa-ellipsis-v text-black-50"></i></div>
+                            </div>
+                        </div>
+                        <div class="p-2 px-3"><span>{{tweet.content}}</span></div>
+                        <div class="d-flex justify-content-end socials p-2 py-3">
+                            <i @click.prevent="upLikes(tweet.likes+1)" class="fa fa-thumbs-up" style="font-size:25px;color:red"> {{tweet.likes}} </i>
+                            <i @click.prevent="upReply(tweet.reply+1)" class="fa fa-share" style="font-size:25px;color:red"></i>
+                            <i class="fa fa-comments-o" style="font-size:25px;color:red"> {{tweet.reply}} </i>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
         </div>
     </div>
+
+
+    
 </template>
 
 <script>
+
+import PostTweet from "./PostTweet.vue"
 export default {
-    name: "Tweet"
+    name: "Tweet",
+    components: {
+        PostTweet
+    },
+    methods: {
+        seeDetail (id) {
+            this.$router.push({ path: `/detail/${id}` })
+            this.$store.dispatch("getQrCode", id)
+        },
+        upLikes (id) {
+            console.log(`upLikes`);
+            this.$store.commit('UP_LIKES', id)
+        },
+    },
+    computed: {
+        tweets() {
+            return this.$store.state.tweets;
+        }
+    },
+    created() {
+        this.$store.dispatch("fetchTweet");
+    },
 }
+
+
+
 </script>
 
 <style>

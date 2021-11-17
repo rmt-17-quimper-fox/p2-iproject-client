@@ -67,8 +67,11 @@
           </div>
           <!-- Side widget-->
           <div class="card mb-4">
-            <div class="card-header">Chat</div>
-            <div class="card-body">Probably socket.io</div>
+            <div class="card-header">Search By Voice</div>
+            <div class="card-body">
+              <button @click.prevent="startSpeech" class="btn btn-primary">speech to text</button>
+              <p class="mt-2">{{ runtimeTranscription_ }}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -101,6 +104,9 @@ export default {
       search: "",
       page: 1,
       perPage: 10,
+      runtimeTranscription_: "",
+      transcription_: [],
+      lang_: "en-US"
     };
   },
   computed: {
@@ -168,6 +174,37 @@ export default {
     handlePageChange(value){
       this.page = value;
       this.fetchNewsList()
+    },
+    startSpeech(){
+      window.SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+      if(!window.SpeechRecognition){
+        this.$swal('Sorry your browser does not support speech recognition')
+      }
+      const recognition = new window.SpeechRecognition();
+      recognition.lang = this.lang_;
+      recognition.interimResults = true;
+
+      // event voice recording
+      recognition.addEventListener("result", event => {
+        console.log(event.results)
+        const text = Array.from(event.results)
+          .map(result => result[0])
+          .map(result => result.transcript)
+          .join("");
+        this.runtimeTranscription_ = text;
+      });
+
+      // end of transcription
+      recognition.addEventListener("end", () => {
+        this.transcription_.push(this.runtimeTranscription_);
+        this.search = this.runtimeTranscription_
+        this.searchNews()
+        this.runtimeTranscription_ = "";
+        recognition.stop();
+
+      });
+      recognition.start();
     }
   },
   created() {

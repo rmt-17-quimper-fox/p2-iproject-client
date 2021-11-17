@@ -51,5 +51,9 @@ export default {
 </script>
 
 <style>
-
+@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@700&display=swap');
+.navbar-brand{
+  font-family: 'Antonio', sans-serif;
+  font-style: italic;
+}
 </style>

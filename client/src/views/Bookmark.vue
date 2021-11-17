@@ -2,10 +2,10 @@
     <div class="bookmark">
         <Navbar/>
                 <!-- Page content-->
-        <div class="container">
+        <div class="container mt-5">
             <div class="row">
                 <!-- News entries-->
-                <div class="col-lg-8 bookmark-container">
+                <div class="col bookmark-container">
                     <!-- Nested row for non-featured News posts-->
                     <div class="row">
                         <div class="d-flex flex-wrap">
@@ -19,23 +19,7 @@
                     </div>
                 </div>
                 <!-- Side widgets-->
-                <div class="col-lg-4">
-                    <!-- Search widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Search</div>
-                        <div class="card-body">
-                            <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Side widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Chat</div>
-                        <div class="card-body">Probably socket.io</div>
-                    </div>
-                </div>
+
             </div>
         </div>
         <!-- Footer-->
@@ -73,6 +57,9 @@ export default {
     },
     created(){
         this.fetchBookmark()
+        if (localStorage.getItem("access_token")) {
+        this.$store.commit("SET_IS_LOGIN", true);
+        }
     }
 }
 </script>

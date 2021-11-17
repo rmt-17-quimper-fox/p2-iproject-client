@@ -3,7 +3,7 @@
   <div class="card mb-4 mx-1" style="width: 25rem">
     <a :href="news.url"
       ><img
-        class="card-img-top"
+        class="card-img-top overflow-hidden"
         :src="news.urlToImage"
         alt="..."
     /></a>

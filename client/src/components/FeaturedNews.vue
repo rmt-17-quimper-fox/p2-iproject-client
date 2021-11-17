@@ -1,7 +1,7 @@
 <template>
   <div class="card mb-4">
     <a :href="featuredNews.url"
-      ><img class="card-img-top" :src="featuredNews.urlToImage" alt="..."
+      ><img class="card-img-top overflow-hidden" :src="featuredNews.urlToImage" alt="..."
     /></a>
     <div class="card-body">
       <div class="small text-muted">{{ featuredNews.publishedAt }}</div>
@@ -28,10 +28,10 @@ export default {
   methods: {
     postBookmark() {
       const payload = {
-        title: this.news.title,
-        imageUrl: this.news.urlToImage,
-        description: this.news.description,
-        link: this.news.url,
+        title: this.featuredNews.title,
+        imageUrl: this.featuredNews.urlToImage,
+        description: this.featuredNews.description,
+        link: this.featuredNews.url,
       };
       console.log(payload);
       this.$store

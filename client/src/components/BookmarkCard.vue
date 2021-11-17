@@ -10,7 +10,7 @@
       <p class="card-text">
         {{ bookmark.description }}
       </p>
-      <button @click.prevent="readTheNews">read the news</button>
+      <button @click.prevent="readTheNews" class="btn btn-dark">read the news</button>
     </div>
   </div>
 </template>
@@ -23,16 +23,24 @@ export default {
     readTheNews() {
       let title = this.bookmark.title
       let description = this.bookmark.description
-      window.speechSynthesis.onvoiceschanged = function () {
       const utterance = new SpeechSynthesisUtterance();
-      const voice = window.speechSynthesis.getVoices()[4  ];
+      const voice = window.speechSynthesis.getVoices()[4];
       utterance.text = 'the title is:' + title + description;
       utterance.voice = voice;
       utterance.pitch = 1;
       utterance.rate = 1;
       utterance.volume = 1;
       window.speechSynthesis.speak(utterance);
-      };
+      // window.speechSynthesis.onvoiceschanged = function () {
+      // const utterance = new SpeechSynthesisUtterance();
+      // const voice = window.speechSynthesis.getVoices()[4];
+      // utterance.text = 'the title is:' + title + description;
+      // utterance.voice = voice;
+      // utterance.pitch = 1;
+      // utterance.rate = 1;
+      // utterance.volume = 1;
+      // window.speechSynthesis.speak(utterance);
+      // };
 
     },
   },

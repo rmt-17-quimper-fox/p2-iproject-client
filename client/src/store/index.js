@@ -37,6 +37,13 @@ export default new Vuex.Store({
         }
       })
     },
+    searchNews(context, payload){
+      return axios({
+        method: 'GET',
+        url: 'https://newsapi.org/v2/everything',
+        params: payload
+      })
+    },
     fetchBookmark(){
       return axios({
         method: 'GET',

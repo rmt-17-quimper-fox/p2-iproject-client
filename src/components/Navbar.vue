@@ -1,17 +1,30 @@
 <template>
-  <nav class="d-flex justify-content-between mx-5 pt-4 fs-2">
+  <nav class="d-flex justify-content-between mx-5 pt-4 fs-3">
     <div class="d-flex justify-content-around">
-      <a class="mx-4" href="">Home</a>
+      <a @click.prevent="toHome" class="mx-4" href="">Home</a>
       <a class="mx-4" href="">My Parties</a>
-      <a class="mx-4" href="">Find Party</a>
+      <a @click.prevent="toProfile" class="mx-4" href="">My Profile</a>
+      <a @click.prevent="toProfile" class="mx-4" href="">+ Create Party</a>
     </div>
-    <a href="" class="nav-item">logout</a>
+    <a href="" @click.prevent="logout" class="nav-item">logout</a>
   </nav>
 </template>
 
 <script>
 export default {
   name: "Navbar",
+  methods: {
+    logout() {
+      localStorage.clear();
+      this.$router.push({ name: "Login" });
+    },
+    toProfile() {
+      this.$router.push("/home/profile");
+    },
+    toHome() {
+      this.$router.push("/home");
+    },
+  },
 };
 </script>
 

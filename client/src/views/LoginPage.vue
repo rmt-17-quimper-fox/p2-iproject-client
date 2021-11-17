@@ -2,6 +2,9 @@
 <!-- Login Form -->
 <div class="container" style="font-size:xx-medium">
     <div class="row mt-5">
+    <div class="row mt-5"></div>
+    <div class="row mt-5"></div>
+    <div class="row mt-5"></div>
         <div class="col-6 card p-4 justify-content-center">
             <div class="row px-3"><h2>Login</h2></div>
             <div class="px-3"><p>Login to your account</p></div>
@@ -40,8 +43,51 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 export default {
-    name: 'Login-Page'
+    name: 'Login-Page',
+    data: function() {
+        return {
+            email: '',
+            password: ''
+        }
+    },
+    methods: {
+        async login() {
+            try {
+                const loginData = {
+					email: this.email,
+					password: this.password
+                }
+                const resp = await this.$store.dispatch('login', loginData)
+                const access_token = resp.data.access_token
+                localStorage.setItem('access_token', access_token)
+				this.$store.commit('SET_IS_LOGGED_IN', true)
+				Swal.fire({
+                    icon: 'success',
+                    title: 'Yeay You have logged in!!!',
+                    text: 'Now you can access Tons of Recipes'
+                })
+				this.$router.push('/')
+				this.email = ''
+                this.password = ''
+            } catch (error) {
+				const message = error.response.data.message
+				Swal.fire({
+					icon: 'error',
+					title: message,
+					text: 'Input your email/password correctly!!!'
+				})
+				this.email = ''
+				this.password = ''
+            }
+        }
+	},
+	created: function() {
+		const { email, password } = this.$store.state.populaterLoginForm
+		this.email = email
+		this.password = password
+	}
 }
 </script>
 

@@ -64,6 +64,10 @@ export default {
             timer: 1500,
           });
           this.$router.push("/");
+          return this.$store.dispatch("fetchParties");
+        })
+        .then(() => {
+          console.log("fetch parties after create party success");
         })
         .catch((err) => {
           console.log(err.response.data.message);

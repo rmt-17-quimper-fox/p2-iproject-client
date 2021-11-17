@@ -9,11 +9,32 @@
 <script>
 import HFooter from "vue-hacktiv8-footer";
 import Navbar from "../components/Navbar.vue";
+import Swal from "sweetalert2";
+
 export default {
   name: "Home",
   components: {
     HFooter,
     Navbar,
+  },
+  computed: {
+    parties() {
+      return this.$store.state.parties;
+    },
+  },
+  created() {
+    this.$store
+      .dispatch("fetchParties")
+      .then(() => {
+        console.log("fetch parties success");
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err.response.data.message,
+        });
+      });
   },
 };
 </script>

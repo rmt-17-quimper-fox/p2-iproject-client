@@ -59,7 +59,7 @@ export default new Vuex.Store({
           },
         })
           .then(({ data }) => {
-            context.commit("SET_PARTIS", data);
+            context.commit("SET_PARTIES", data);
             resolve();
           })
           .catch((err) => {
@@ -78,7 +78,7 @@ export default new Vuex.Store({
           },
         })
           .then((res) => {
-            console.log(res);
+            console.log(res.data);
             resolve(res);
           })
           .catch((err) => {

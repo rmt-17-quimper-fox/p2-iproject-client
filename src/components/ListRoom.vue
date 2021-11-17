@@ -1,9 +1,8 @@
 <template>
   <div>
-    <h1 @click="$router.push({name: 'Room'})">ListRoom</h1>
-    <div >
+    <div class="my-3 mx-5 shadow p-3 mb-5 bg-body rounded" >
         <table  class="table">
-          <thead  class="table-list">
+          <thead  class="table-list text-light">
             <tr>
               <th scope="col">No.</th>
               <th scope="col">Room Name</th>
@@ -15,8 +14,8 @@
               <th scope="row">{{index+1}}</th>
               <td>{{room.name}}</td>
               <td>
-                  <button @click="joinRoom(room.id)">Join Room</button>
-                  <button>Delete Room</button>
+                  <button class="btn btn-primary mx-3" @click="joinRoom(room.id)">Join Room</button>
+                  <button class="btn btn-danger">Delete Room</button>
               </td>
             </tr>
           </tbody>
@@ -38,6 +37,7 @@ export default {
     },
     methods : {
       joinRoom(value){
+        
         Swal.fire({
           title: 'Password Room',
           html: `<input type="password" id="password" class="swal2-input" placeholder="Password">`,
@@ -50,11 +50,12 @@ export default {
             this.$store.dispatch('joinRoom')
               .then(response => {
                 console.log('masuk fetch')
-                console.log(response);
+                console.log(response, 'asuuuuup join room');
                 Swal.fire('Valid Password!')
                 this.$router.push({name: 'Room'})
               })
               .catch(err => {
+                console.log(err.response, 'asup eror joinroom');
                 console.log(err.response.data.message);
                 Swal.fire(err.response.data.message)
               })
@@ -72,6 +73,9 @@ export default {
 <style>
 .table-list{
   background-color: #055052;
+}
+th,td{
+  text-align: center;
 }
 
 </style>

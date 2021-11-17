@@ -1,12 +1,12 @@
 <template>
   <div class="home wrapper">
-    <h1>Ini home</h1>
-    <section id = "home">
+
+    <section class="py-4" id = "home">
         <img class="imgHome" src="../assets/2.jpg" />
         <div class="kolom">
             <h2 class="deskripsi"> Connecting People Around The World</h2>
             <h2><span class="efek-ngetik"></span></h2>
-            <p>Stay Safe And Meet Up Online!</p> <br><br><br><br>
+            <p>Stay Safe And Meet Up Online!</p> 
             <h3>For More Information, Kindly Contact Us </h3>
             <p>+62 8193134 1609</p>
         </div>
@@ -33,7 +33,7 @@ export default {
   border: 1px solid #ddd;
   border-radius: 50%;
   padding: 5px;
-  width: 70%;
+  width: 50%;
 }
 section {
     margin: auto ;

@@ -17,7 +17,8 @@ export default new Vuex.Store({
     usersInRoom : [],
     roomId : '',
     coordinateUser : [],
-    token : ''
+    token : '',
+    loading : false
   },
   mutations: {
     LOGIN(state,payload){
@@ -54,6 +55,9 @@ export default new Vuex.Store({
     },
     LOGINGOOGLE(state,payload){
       state.token = payload
+    },
+    LOADING(state,payload){
+      state.loading = payload
     }
   },
   actions: {

@@ -54,8 +54,8 @@
         </l-marker>
       </l-map>
     </div>
-    <div>
-      <button @click="updateCoord">Update New Coordinate</button>
+    <div class="text-center">
+      <button class="btn btn-warning mt-4 center" @click="updateCoord">Update New Coordinate</button>
     </div>
   </div>
 </template>
@@ -101,7 +101,7 @@ export default {
     },
     getRoomId() {
       return this.$store.state.joinRoomId;
-    },
+    }
   },
   data: function () {
     return {
@@ -113,10 +113,13 @@ export default {
       markerLatLng: [0, 0],
       users: [],
       timer: ''
+      // loading : false
     };
   },
   methods: {
     getCurrentLocation() {
+      // this.$store.commit('LOADING', true)
+      // this.loading = true
       if (!("geolocation" in navigator)) {
         // this.errorStr = 'Geolocation is not available.';
         // return;
@@ -143,6 +146,7 @@ export default {
           .dispatch("updateLocation")
           .then((response) => {
             console.log(response, "updateLocation");
+            // this.$store.commit('LOADING', false)
             this.$store.dispatch("getUsersRoom");
           })
           .catch((err) => {
@@ -150,6 +154,7 @@ export default {
           });
 
           
+            // this.loading = false
       });
     },
     moveToUser(location){

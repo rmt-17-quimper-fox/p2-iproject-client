@@ -1,80 +1,38 @@
 <template>
 <!-- Home Before Login -->
-<div>
-    <div class="container-fluid">
-        <navbar></navbar>
-        <div class="row mt-4">
-            <div class="d-flex justify-content-center">
-                <div class="col-1 mx-4">
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Meal Type</option>
-                        <option value="1">Sarapan</option>
-                        <option value="2">Makan siang</option>
-                        <option value="3">Makan malam</option>
-                    </select>
-                </div>
-                <div class="col-1 mx-4">
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Cuisine Type</option>
-                        <option value="1">Makanan Asia</option>
-                        <option value="2">Makanan Eropa</option>
-                        <option value="3">Makanan Anak Kos</option>
-                    </select>
-                </div>
-                <div class="col-1 mx-4">
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Diet Type</option>
-                        <option value="1">High-Fiber</option>
-                        <option value="2">Low-fat</option>
-                        <option value="3">Vegan</option>
-                    </select>
-                </div>
+<div class="container-fluid">
+    <navbar></navbar>
+    <div class="row mt-4">
+        <div class="d-flex justify-content-center">
+            <div class="col-1 mx-4">
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>Meal Type</option>
+                    <option value="1">Sarapan</option>
+                    <option value="2">Makan siang</option>
+                    <option value="3">Makan malam</option>
+                </select>
+            </div>
+            <div class="col-1 mx-4">
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>Cuisine Type</option>
+                    <option value="1">Makanan Asia</option>
+                    <option value="2">Makanan Eropa</option>
+                    <option value="3">Makanan Anak Kos</option>
+                </select>
+            </div>
+            <div class="col-1 mx-4">
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>Diet Type</option>
+                    <option value="1">High-Fiber</option>
+                    <option value="2">Low-fat</option>
+                    <option value="3">Vegan</option>
+                </select>
             </div>
         </div>
-        <div class="container">
-            <div class="row mt-5">
-                <div class="col card mx-5 shadow p-3 mb-5 bg-body rounded">
-                    <h2 class="my-3">Ketoprak</h2>
-                    <img src="@/assets/ketoprak.jpg" alt="">
-                    <h3><span class="badge bg-warning my-3">Western</span></h3>
-                    <div class="card-body container">
-                        <div class="row">
-                            <h3 class="card-title my-4">Bahan:</h3>
-                        </div>
-                        <div class="row">
-                            <ol class="list-group-numbered"> 
-                              <li class="list-group-item">Indomie 1 bungkus</li>
-                              <li class="list-group-item">Telur 1 butir</li>
-                              <li class="list-group-item">Air panas</li>
-                              <li class="list-group-item">Tomat</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-                <div class="col card shadow p-3 mb-5 bg-body rounded">
-                    <h2 class="my-3">Spaggeti</h2>
-                    <img src="@/assets/spagetti.jpg" alt="">
-                    <h3><span class="badge bg-warning my-3">Western</span></h3>
-                </div>
-                <div class="col card mx-5 shadow p-3 mb-5 bg-body rounded">
-                    <h2 class="my-3">Indomie Rebus</h2>
-                    <img src="@/assets/indomie.jpg" alt="">
-                    <h3><span class="badge bg-success my-3">Anak Kos</span></h3>
-                    <div class="card-body container">
-                        <div class="row">
-                            <h3 class="card-title my-4">Bahan:</h3>
-                        </div>
-                        <div class="row">
-                            <ol class="list-group-numbered"> 
-                              <li class="list-group-item">Indomie 1 bungkus</li>
-                              <li class="list-group-item">Telur 1 butir</li>
-                              <li class="list-group-item">Air panas</li>
-                              <li class="list-group-item">Tomat</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    </div>
+    <div class="container">
+        <div class="row mt-5">
+        <recipe-card v-for="(data, idx) in recipeData" :key="idx"></recipe-card>
             <div class="d-flex justify-content-center">
                 <nav class="row mt-5" aria-label="Page navigation example">
                     <ul class="pagination pagination-lg">
@@ -128,10 +86,17 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import RecipeCard from '@/components/RecipeCard.vue'
 export default {
     name: 'Home-Page',
     components: {
-        Navbar
+        Navbar,
+        RecipeCard
+    },
+    data: function() {
+        return {
+            recipeData: ['1', '2', '3']
+        }
     }
 }
 </script>

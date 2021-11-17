@@ -22,21 +22,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr style="font-size: 20px;">
-                        <td scope="row">1</td>
-                        <td>bunda_arif</td>
-                        <td>1100</td>
-                    </tr>
-                    <tr style="font-size: 20px;">
-                        <td scope="row">2</td>
-                        <td>deliciosboy</td>
-                        <td>900</td>
-                    </tr>
-                    <tr style="font-size: 20px;">
-                        <td scope="row">3</td>
-                        <td>istri_kahan</td>
-                        <td>850</td>
-                    </tr>
+                        <leader-board-column
+                        v-for="(data, idx) in leaderBoardData" :key="idx"></leader-board-column>
                     </tbody>
             </table>
         </div>
@@ -58,11 +45,18 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import LeaderBoardColumn from '@/components/LeaderBoardColumn.vue'
 export default {
     name: 'Leader-Board-Page',
     components: { 
-        Navbar 
+        Navbar,
+        LeaderBoardColumn 
     },
+    data: function() {
+        return {
+            leaderBoardData: ['1', '2', '3']
+        }
+    }
 }
 </script>
 

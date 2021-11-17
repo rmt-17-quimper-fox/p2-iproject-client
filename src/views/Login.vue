@@ -10,6 +10,7 @@
             class="form-control"
             id="exampleFormControlInput1"
             placeholder="name@example.com"
+            v-model="email"
           />
         </div>
         <div class="mb-3">
@@ -21,6 +22,7 @@
             class="form-control"
             id="exampleFormControlInput1"
             placeholder="e.g*****"
+            v-model="password"
           />
         </div>
         <div class="d-grid gap-2 mt-5">
@@ -39,6 +41,17 @@
 <script>
 export default {
   name: "Login",
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    // login() {
+
+    // }
+  }
 };
 </script>
 

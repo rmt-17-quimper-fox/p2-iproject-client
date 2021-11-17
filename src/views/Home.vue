@@ -1,20 +1,22 @@
 <template>
 <div>
-    <Sidebar></Sidebar>
+    <Navbar></Navbar>
+    <!-- <Sidebar></Sidebar> -->
     <Tweet></Tweet>
-
 </div>
 </template>
 
 <script>
 import Tweet from '../components/Tweet.vue'
-import Sidebar from '../components/Sidebar.vue'
+// import Sidebar from '../components/Sidebar.vue'
+import Navbar from '../components/Navbar.vue'
 
 export default {
   name: 'Home',
   components: {
     Tweet,
-    Sidebar
+    // Sidebar,
+    Navbar,
   }
 }
 

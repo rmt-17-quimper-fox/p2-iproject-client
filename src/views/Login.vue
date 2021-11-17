@@ -2,14 +2,14 @@
   <div class="container-fluid login-page">
     <div class="login-box position-absolute top-50 start-50 translate-middle">
       <h1 class="text-center mb-5">LOGIN</h1>
-      <form>
+      <form @submit.prevent="login">
         <div class="mb-3">
           <label for="exampleFormControlInput1" class="form-label">Email</label>
           <input
             type="email"
             class="form-control"
-            id="exampleFormControlInput1"
             placeholder="name@example.com"
+            v-model="email"
           />
         </div>
         <div class="mb-3">
@@ -19,17 +19,20 @@
           <input
             type="password"
             class="form-control"
-            id="exampleFormControlInput1"
             placeholder="e.g*****"
+            v-model="password"
           />
         </div>
         <div class="d-grid gap-2 mt-5">
-          <button class="btn submit-login" type="button">Sign In</button>
+          <button class="btn submit-login" type="submit">Sign In</button>
         </div>
       </form>
       <div class="mt-4">
         <p>
-          Dont have an account? <a href="" class="link-primary">sign up here</a>
+          Dont have an account?
+          <a href="" @click.prevent="toRegistration" class="link-primary"
+            >sign up here</a
+          >
         </p>
       </div>
     </div>
@@ -39,6 +42,32 @@
 <script>
 export default {
   name: "Login",
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    login() {
+      const payload = {
+        email: this.email,
+        password: this.password,
+      };
+      this.$store
+        .dispatch("login", payload)
+        .then(({ access_token }) => {
+          localStorage.setItem("access_token", access_token);
+          this.$router.push({ name: "Home" });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    toRegistration() {
+      this.$router.push("registration");
+    },
+  },
 };
 </script>
 

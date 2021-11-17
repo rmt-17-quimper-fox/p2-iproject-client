@@ -1,29 +1,43 @@
 <template>
-    <!-- News post-->
+  <!-- News post-->
   <div class="card mb-4 mx-1" style="width: 25rem">
-    <a :href="news.url"
-      ><img
-        class="card-img-top"
-        :src="news.urlToImage"
-        alt="..."
+    <a :href="bookmark.url"
+      ><img class="card-img-top" :src="bookmark.imageUrl" alt="..."
     /></a>
     <div class="card-body">
-      <div class="small text-muted">{{ news.publishedAt }}</div>
-      <h2 class="card-title h4">{{ news.title }}</h2>
+      <div class="small text-muted">{{ bookmark.publishedAt }}</div>
+      <h2 class="card-title h4">{{ bookmark.title }}</h2>
       <p class="card-text">
-        {{ news.description }}
+        {{ bookmark.description }}
       </p>
-      <a class="btn btn-primary" href="" @click.prevent="postBookmark()">Save to bookmark</a>
+      <button @click.prevent="readTheNews">read the news</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  name: "BookmarkCard",
+  props: ["bookmark"],
+  methods: {
+    readTheNews() {
+      let title = this.bookmark.title
+      let description = this.bookmark.description
+      window.speechSynthesis.onvoiceschanged = function () {
+      const utterance = new SpeechSynthesisUtterance();
+      const voice = window.speechSynthesis.getVoices()[4  ];
+      utterance.text = 'the title is:' + title + description;
+      utterance.voice = voice;
+      utterance.pitch = 1;
+      utterance.rate = 1;
+      utterance.volume = 1;
+      window.speechSynthesis.speak(utterance);
+      };
 
-}
+    },
+  },
+};
 </script>
 
 <style>
-
 </style>

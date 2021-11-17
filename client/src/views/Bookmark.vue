@@ -10,9 +10,14 @@
                     <div class="row">
                         <div class="d-flex flex-wrap">
                             <!--place card here-->
+                            <bookmark-card
+                            v-for="(bookmark) in bookmarkData"
+                            :key="bookmark.id"
+                            :bookmark="bookmark"
+                            ></bookmark-card>
                         </div>
                     </div>
-                    
+                </div>
                 <!-- Side widgets-->
                 <div class="col-lg-4">
                     <!-- Search widget-->
@@ -42,11 +47,18 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import BookmarkCard from '@/components/BookmarkCard.vue'
 
 export default {
     name: 'Bookmark',
     components: {
-        Navbar
+        Navbar,
+        BookmarkCard
+    },
+    computed:{
+        bookmarkData(){
+            return this.$store.state.bookmarkData
+        }
     },
     methods:{
         fetchBookmark(){

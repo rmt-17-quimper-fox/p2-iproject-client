@@ -17,7 +17,7 @@
             <a class="nav-link active" href="" @click.prevent="logout" >Logout</a>
           </li>
         </ul>
-        <router-link to="/bookmarks" href="" class="nav-link active">MyBookmark</router-link>
+        <router-link to="/bookmark" href="" class="nav-link active">MyBookmark</router-link>
         <span class="navbar-text" v-if="isLoggedIn === true">
           admin@admin.com
         </span>

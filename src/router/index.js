@@ -20,6 +20,19 @@ const routes = [
         next();
       }
     },
+    children: [
+      {
+        // UserProfile will be rendered inside User's <router-view>
+        // when /user/:id/profile is matched
+        path: "profile",
+        component: () => import("../views/Profile.vue"),
+      },
+      {
+        path: "createParty",
+        name: "CreateParty",
+        component: () => import("../views/PartyForm.vue"),
+      },
+    ],
   },
   {
     path: "/login",

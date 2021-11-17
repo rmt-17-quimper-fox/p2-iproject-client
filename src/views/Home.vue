@@ -1,6 +1,7 @@
 <template>
   <div id="home-page">
     <Navbar />
+    <router-view></router-view>
     <HFooter class="fixed-bottom" />
   </div>
 </template>
@@ -18,7 +19,9 @@ export default {
 </script>
 <style scoped>
 #home-page {
-  height: 100vh;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
   background: rgba(0, 0, 0, 0.7) url("../assets/home-background.jpg");
   background-size: cover;
   background-blend-mode: darken;

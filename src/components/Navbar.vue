@@ -83,6 +83,7 @@ export default {
         .dispatch("leaveRoom")
         .then((response) => {
           console.log(response);
+          localStorage.roomId  = null
           this.$router.push({ name: "ListRoom" });
         })
         .catch((err) => {

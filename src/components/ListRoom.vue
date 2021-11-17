@@ -55,7 +55,10 @@ export default {
                 console.log('masuk fetch')
                 console.log(response, 'asuuuuup join room');
                 Swal.fire('Valid Password!')
-                this.$router.push({name: 'Room'})
+                let id = value
+                // this.$router.push({name: 'Room'})
+                localStorage.setItem('roomId', value)
+                this.$router.push({ name: 'Room', params: { id} })
               })
               .catch(err => {
                 console.log(err.response, 'asup eror joinroom');

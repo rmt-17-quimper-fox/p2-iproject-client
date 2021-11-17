@@ -1,6 +1,6 @@
 <template>
   <div class="home wrapper">
-
+      
     <section class="py-4" id = "home">
         <img class="imgHome" src="../assets/2.jpg" />
         <div class="kolom">
@@ -17,9 +17,20 @@
 <script>
 // @ is an alias to /src
 
-
+// import Countdown from '../components/Countdow.vue'
 export default {
-  name: 'Home'
+  name: 'Home',
+  methods: {
+    transformSlotProps(props) {
+      const formattedProps = {};
+
+      Object.entries(props).forEach(([key, value]) => {
+        formattedProps[key] = value < 10 ? `0${value}` : String(value);
+      });
+
+      return formattedProps;
+    },
+  },
 }
 </script>
 

@@ -54,6 +54,9 @@
         </l-marker>
       </l-map>
     </div>
+    <div>
+      <button @click="updateCoord">Update New Coordinate</button>
+    </div>
   </div>
 </template>
 
@@ -109,6 +112,7 @@ export default {
       center: [-6.904773135464642, 107.62000199436874],
       markerLatLng: [0, 0],
       users: [],
+      timer: ''
     };
   },
   methods: {
@@ -144,19 +148,30 @@ export default {
           .catch((err) => {
             console.log(err.response.data);
           });
+
+          
       });
     },
     moveToUser(location){
         this.center = location
         this.zoom = 10
+    },
+    // ,
+    updateCoord(){
+      this.getCurrentLocation()
     }
   },
   created() {
-    if (this.getRoomId.length == 0) {
-      this.$router.push({ name: "Home" });
-    }
+    // if (this.getRoomId.length == 0) {
+    //   // let id = this.getRoomId
+    //   this.$router.push({ name: "Home" });
+    // }else {
+    //   this.$router.push({name : 'Room'})
+    // }
     this.getCurrentLocation();
     // this.userLocation()
+    // this.updateCoord()
+    // setInterval(this.updateCoord(), 5000);
   },
 };
 </script>

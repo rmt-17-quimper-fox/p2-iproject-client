@@ -33,7 +33,7 @@
                   </div>
                   <div class="d-flex w-100 justify-content-between my-3">
                     <!-- <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin> -->
-                    <!-- <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin> -->
+                    <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>
                     <!-- <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin> -->
                     <input
                       class="btn btn-primary ml-2"
@@ -60,13 +60,26 @@
 </template>
 
 <script>
+import GoogleLogin from "vue-google-login";
 export default {
   name: "Login",
   data: function () {
     return {
       email: "",
       password: "",
+      params: {
+        client_id:
+        "908896643744-fous0kp3sgu7tm4k909h3qas1ujcfpdq.apps.googleusercontent.com",
+      },
+      renderParams: {
+        width: 250,
+        height: 50,
+        longtitle: false,
+      },
     };
+  },
+  components :{
+    GoogleLogin
   },
   methods: {
     loginUser() {
@@ -89,6 +102,27 @@ export default {
         .catch((err) => {
           console.log(err.response);
         });
+    },
+    onSuccess(googleUser) {
+        // console.log(googleUser.token);
+      var id_token = googleUser.getAuthResponse().id_token;
+      // console.log(id_token);
+      this.$store.commit("LOGINGOOGLE", id_token)
+      this.$store.dispatch('loginGoogle')
+        .then(response => {
+          
+          console.log(response.data);
+          localStorage.access_token = response.data.access_token
+          this.$router.push({name : 'Home'})
+        })
+        .catch(err => {
+          console.log(err.response, 'responnn');
+        })
+    },
+    onFailure(googleUser) {
+      console.log(googleUser);
+        //   console.log(googleUser.getBasicProfile());
+      console.log('Google Error');
     },
   },
 };

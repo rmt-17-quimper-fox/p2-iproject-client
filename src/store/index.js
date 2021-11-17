@@ -8,15 +8,16 @@ export default new Vuex.Store({
     user : {},
     userId : localStorage.userId ? localStorage.userId : '',
     isLogin : localStorage.access_token? true : false,
+    joinRoomId : localStorage.roomId? localStorage.roomId : '',
     userRegister : {},
     listRoom : [],
-    joinRoomId : '',
+    // joinRoomId : '',
     passwordRoom : '',
     roomCreated : {},
     usersInRoom : [],
     roomId : '',
-    coordinateUser : []
-
+    coordinateUser : [],
+    token : ''
   },
   mutations: {
     LOGIN(state,payload){
@@ -50,6 +51,9 @@ export default new Vuex.Store({
     },
     GETLOCATION(state,payload){
       state.coordinateUser = payload
+    },
+    LOGINGOOGLE(state,payload){
+      state.token = payload
     }
   },
   actions: {
@@ -59,6 +63,16 @@ export default new Vuex.Store({
         method : 'POST',
         url : '/login',
         data : user
+      })
+    },
+    loginGoogle(context){
+      const tokenGoogle = context.state.token
+      return axios({
+        method : 'POST',
+        url : '/google-signin',
+        data : {
+          id_token : tokenGoogle
+        }
       })
     },
     register(context){

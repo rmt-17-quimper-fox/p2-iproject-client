@@ -1,18 +1,15 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <HFooter />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+import HFooter from "vue-hacktiv8-footer";
 export default {
   name: "Home",
   components: {
-    HelloWorld,
+    HFooter,
   },
 };
 </script>

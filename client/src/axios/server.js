@@ -1,8 +1,7 @@
 import axios from "axios";
 // "http://localhost:3000"
+//https://denis-news-cms.herokuapp.com
 
-const instance = axios.create({
+export default axios.create({
     baseURL: "http://localhost:3000",
   });
-
-module.exports = instance

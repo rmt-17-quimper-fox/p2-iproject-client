@@ -50,8 +50,17 @@ export default {
     },
     methods:{
         fetchBookmark(){
-
+            this.$store.dispatch('fetchBookmark')
+            .then(({data}) => {
+                this.$store.commit('SET_BOOKMARK_DATA', data)
+            })
+            .catch((err) => {
+                this.$swal(err.response.data.message)
+            })  
         }
+    },
+    created(){
+        this.fetchBookmark()
     }
 }
 </script>

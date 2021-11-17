@@ -13,7 +13,7 @@
       <p class="card-text">
         {{ news.description }}
       </p>
-      <a class="btn btn-primary" href="#!">Save to bookmark</a>
+      <a class="btn btn-primary" href="" @click.prevent="postBookmark" v-if="isLoggedIn === true">Save to bookmark</a>
     </div>
   </div>
 </template>
@@ -22,7 +22,12 @@
 export default {
     name: "NewsCard",
     props: [ "news" ],
-    method:{
+    computed:{
+      isLoggedIn(){
+        return this.$store.state.isLogin
+      }
+    },
+    methods:{
       postBookmark(){
         const payload = {
           title: this.news.title,
@@ -30,9 +35,14 @@ export default {
           description: this.news.description,
           link: this.news.url,
         }
-        console.log(payload, 'payload')
-        // this.$store.dispatch('postBookmark', payload)
-
+        console.log(payload)
+          this.$store.dispatch('postBookmark', payload)
+          .then(() => {
+            this.$swal('Bookmark successfully added')
+          })
+          .catch((err) => {
+            this.$swal(err.response)
+          })
       }
     }
 };

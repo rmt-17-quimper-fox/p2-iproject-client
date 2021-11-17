@@ -38,6 +38,7 @@ export default {
     },
     methods : {
       joinRoom(value){
+        
         Swal.fire({
           title: 'Password Room',
           html: `<input type="password" id="password" class="swal2-input" placeholder="Password">`,
@@ -50,11 +51,12 @@ export default {
             this.$store.dispatch('joinRoom')
               .then(response => {
                 console.log('masuk fetch')
-                console.log(response);
+                console.log(response, 'asuuuuup join room');
                 Swal.fire('Valid Password!')
                 this.$router.push({name: 'Room'})
               })
               .catch(err => {
+                console.log(err.response, 'asup eror joinroom');
                 console.log(err.response.data.message);
                 Swal.fire(err.response.data.message)
               })

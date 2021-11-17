@@ -11,7 +11,10 @@ export default new Vuex.Store({
     listRoom : [],
     joinRoomId : '',
     passwordRoom : '',
-    roomCreated : {}
+    roomCreated : {},
+    usersInRoom : [],
+    roomId : '',
+    coordinateUser : []
   },
   mutations: {
     LOGIN(state,payload){
@@ -35,6 +38,15 @@ export default new Vuex.Store({
     },
     CREATEROOM(state,payload){
       state.roomCreated = payload
+    },
+    USERINROOM(state,payload){
+      state.usersInRoom = payload
+    },
+    LEAVEROOM(state,payload){
+      state.roomId = +payload
+    },
+    GETLOCATION(state,payload){
+      state.coordinateUser = payload
     }
   },
   actions: {
@@ -97,6 +109,44 @@ export default new Vuex.Store({
           access_token : localStorage.access_token
         },
         data : createdRoom
+      })
+    },
+    getUsersRoom(context){
+      const joinRoomId = +context.state.joinRoomId
+      axios({
+        method : 'GET',
+        url : `/rooms/room/${joinRoomId}`,
+        headers : {
+          access_token : localStorage.access_token
+        }
+      })
+      .then(response => {
+        console.log(response.data);
+        const userInRoom = response.data
+        context.commit('USERINROOM', userInRoom)
+      })
+    },
+    leaveRoom(context){
+      const roomId = +context.state.roomId
+      return axios({
+        method : 'DELETE',
+        url : `/rooms/room/${roomId}`,
+        headers : {
+          access_token : localStorage.access_token
+        }
+      })
+    },
+    updateLocation(context){
+      return axios({
+        method : 'PUT',
+        url : '/updatelocation',
+        headers : {
+          access_token : localStorage.access_token
+        },
+        data : {
+          latitude : context.state.coordinateUser[0],
+          longitude : context.state.coordinateUser[1]
+        }
       })
     }
   },

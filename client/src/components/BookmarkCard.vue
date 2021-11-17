@@ -11,6 +11,7 @@
         {{ bookmark.description }}
       </p>
       <button @click.prevent="readTheNews" class="btn btn-dark">read the news</button>
+      <button v-if="showCancel" @click.prevent="cancelRead" class="btn btn-red">cancel the read</button>
     </div>
   </div>
 </template>
@@ -19,8 +20,14 @@
 export default {
   name: "BookmarkCard",
   props: ["bookmark"],
+  data(){
+    return{
+      showCancel: false
+    }
+  },
   methods: {
     readTheNews() {
+      this.showCancel = true
       let title = this.bookmark.title
       let description = this.bookmark.description
       const utterance = new SpeechSynthesisUtterance();
@@ -31,19 +38,14 @@ export default {
       utterance.rate = 1;
       utterance.volume = 1;
       window.speechSynthesis.speak(utterance);
-      // window.speechSynthesis.onvoiceschanged = function () {
-      // const utterance = new SpeechSynthesisUtterance();
-      // const voice = window.speechSynthesis.getVoices()[4];
-      // utterance.text = 'the title is:' + title + description;
-      // utterance.voice = voice;
-      // utterance.pitch = 1;
-      // utterance.rate = 1;
-      // utterance.volume = 1;
-      // window.speechSynthesis.speak(utterance);
-      // };
-
     },
+    cancelRead() {
+      window.speechSynthesis.cancel()
+      this.showCancel = false
+    }
   },
+  created(){
+  }
 };
 </script>
 

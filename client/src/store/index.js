@@ -9,7 +9,8 @@ export default new Vuex.Store({
     isLogin: false,
     featuredNews: [],
     newsData:[],
-    bookmarkData:[]
+    bookmarkData:[],
+    totalResults:0
   },
   mutations: {
     SET_IS_LOGIN (state, payload){
@@ -23,18 +24,17 @@ export default new Vuex.Store({
     },
     SET_BOOKMARK_DATA (state, payload){
       state.bookmarkData = payload
+    },
+    SET_TOTAL_RESULTS (state, payload){
+      state.totalResults = payload
     }
   },
   actions: {
-    fetchNewsList(){
+    fetchNewsList(context, payload){
       return axios({
         method: 'GET',
         url: 'https://newsapi.org/v2/top-headlines',
-        params:{
-          apiKey: '59f5d55a2cfa4c95b4966189fd0698a7',
-          country: 'us',
-          pageSize: 11
-        }
+        params:payload
       })
     },
     searchNews(context, payload){

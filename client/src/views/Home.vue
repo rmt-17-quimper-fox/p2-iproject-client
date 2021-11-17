@@ -31,28 +31,13 @@
           </div>
 
           <!-- Pagination-->
-          <nav aria-label="Pagination">
-            <hr class="my-0" />
-            <ul class="pagination justify-content-center my-4">
-              <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
-                  >Newer</a
-                >
-              </li>
-              <li class="page-item active" aria-current="page">
-                <a class="page-link" href="#!">1</a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#!">2</a></li>
-              <li class="page-item"><a class="page-link" href="#!">3</a></li>
-              <li class="page-item disabled">
-                <a class="page-link" href="#!">...</a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#!">15</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#!">Older</a>
-              </li>
-            </ul>
-          </nav>
+          <b-pagination
+            v-model="page"
+            :total-rows="rows"
+            :per-page="perPage"
+            aria-controls="my-table"
+            @change="handlePageChange"
+          ></b-pagination>
         </div>
         <!-- Side widgets-->
         <div class="col-lg-4">
@@ -114,6 +99,8 @@ export default {
   data() {
     return {
       search: "",
+      page: 1,
+      perPage: 10,
     };
   },
   computed: {
@@ -123,28 +110,45 @@ export default {
     newsData() {
       return this.$store.state.newsData;
     },
+    rows(){
+      return this.$store.state.totalResults;
+    }
   },
   methods: {
     fetchNewsList() {
+        const payload = {
+        apiKey: "59f5d55a2cfa4c95b4966189fd0698a7",
+        country: 'us',
+        pageSize: 11,
+        page: 1
+      };
+      if(this.page){
+        payload["page"] = this.page
+      }
       this.$store
-        .dispatch("fetchNewsList")
+        .dispatch("fetchNewsList", payload)
         .then(({ data }) => {
           console.log(data.articles[0], "featured news");
           console.log(data.articles.slice(1), "sisanya");
           this.$store.commit("SET_FEATURED_NEWS", data.articles[0]);
           this.$store.commit("SET_NEWS_DATA", data.articles.slice(1));
+          this.$store.commit('SET_TOTAL_RESULTS', data.totalResults)
         })
         .catch((error) => {
           console.log(error);
         });
     },
     searchNews() {
-        console.log(this.search)
+      console.log(this.search);
       const payload = {
-        qInTitle:"",
+        qInTitle: "",
         apiKey: "59f5d55a2cfa4c95b4966189fd0698a7",
         pageSize: 11,
+        page: 1
       };
+      if(this.page){
+        payload["page"] = this.page
+      }
       if (this.search) {
         payload["qInTitle"] = this.search;
       }
@@ -155,11 +159,16 @@ export default {
           console.log(data.articles.slice(1), "sisanya");
           this.$store.commit("SET_FEATURED_NEWS", data.articles[0]);
           this.$store.commit("SET_NEWS_DATA", data.articles.slice(1));
+          this.$store.commit('SET_TOTAL_RESULTS', data.totalResults)
         })
         .catch((error) => {
           console.log(error);
         });
     },
+    handlePageChange(value){
+      this.page = value;
+      this.fetchNewsList()
+    }
   },
   created() {
     this.fetchNewsList();
@@ -170,5 +179,4 @@ export default {
 };
 </script>
 <style>
-
 </style>

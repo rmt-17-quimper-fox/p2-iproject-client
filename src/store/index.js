@@ -24,7 +24,6 @@ export default new Vuex.Store({
     UP_LIKES (state, payload){
       state.tweetLikes = payload
     },
-
     SET_BOOKMARKS (state, payload) {
       state.bookmarks = payload
     },

@@ -92,38 +92,14 @@ export default {
             }
             this.$store.dispatch('doLogin', payload)
             .then(({data}) => {
-                console.log(data, "==== masuk data doLogin");
                 localStorage.setItem("access_token", data.access_token);
                 this.$store.commit('SET_ISLOGIN', true)
                 this.$router.push('/')
             })
             .catch ((err) => {
-                console.log(err.response.data);
+                console.log(err.response.data)
             })
         },
-        // doSuccess (googleuser) {
-        //     console.log(`masuk goolge`);
-        //     let google_token = googleuser.getAuthResponse().id_token
-        //     this.$store.dispatch('googleSignIn', google_token)
-
-        //     .then(({data}) => {
-        //         console.log(data,"doSuccess");
-        //         localStorage.setItem('access_token', data.access_token)
-        //         this.$store.commit('SET_ISLOGIN', true)
-        //         this.$router.push('/')
-
-        //         localStorage.setItem('role', data.role)
-        //         localStorage.setItem('id', data.id)
-        //     })
-        //     .catch((err) => {
-        //         console.log(err.response.data.message);
-        //     });
-
-            
-        // },
-    //     doFailure (googleUser) {
-    //         console.log(googleUser, "Failure Google Login");
-    //     }
     }
 }
 </script>

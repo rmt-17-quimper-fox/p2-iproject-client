@@ -134,7 +134,7 @@ export default {
                 this.$store.commit('SET_ISLOGIN', false)
             })
             .catch ((err) => {
-                console.log(err);
+                console.log(err.response.data);
             })
         }
     }

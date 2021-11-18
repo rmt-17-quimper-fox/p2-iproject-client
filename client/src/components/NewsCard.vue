@@ -4,11 +4,11 @@
     <a :href="news.url"
       ><img
         class="card-img-top overflow-hidden"
-        :src="news.urlToImage"
+        :src="news.image"
         alt="..."
     /></a>
     <div class="card-body">
-      <div class="small text-muted">{{ news.publishedAt }}</div>
+      <div class="small text-muted">{{ news.published }}</div>
       <h2 class="card-title h4">{{ news.title }}</h2>
       <p class="card-text">
         {{ news.description }}
@@ -32,7 +32,7 @@ export default {
         console.log(payload)
         const payload = {
           title: this.news.title,
-          imageUrl: this.news.urlToImage,
+          imageUrl: this.news.image,
           description: this.news.description,
           link: this.news.url,
         }

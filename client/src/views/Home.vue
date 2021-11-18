@@ -125,22 +125,21 @@ export default {
   methods: {
     fetchNewsList() {
         const payload = {
-        apiKey: "59f5d55a2cfa4c95b4966189fd0698a7",
-        country: 'us',
-        pageSize: 11,
-        page: 1
+        apiKey: "G5My9AEB_PwT8w7c-oPQ6meK_bC1KYPv21FHDhyM903Xapwj",
+        language: 'en',
+        page_size: 11,
+        page_number: 1
       };
       if(this.page){
-        payload["page"] = this.page
+        payload["page_number"] = this.page
       }
       this.$store
         .dispatch("fetchNewsList", payload)
         .then(({ data }) => {
-          // console.log(data.articles[0], "featured news");
-          // console.log(data.articles.slice(1), "sisanya");
-          this.$store.commit("SET_FEATURED_NEWS", data.articles[0]);
-          this.$store.commit("SET_NEWS_DATA", data.articles.slice(1));
-          this.$store.commit('SET_TOTAL_RESULTS', data.totalResults)
+          console.log(data.news[0], data.news.length)
+          this.$store.commit("SET_FEATURED_NEWS", data.news[0]);
+          this.$store.commit("SET_NEWS_DATA", data.news.slice(1));
+          this.$store.commit('SET_TOTAL_RESULTS', data.news.length)
         })
         .catch((error) => {
           console.log(error);
@@ -149,25 +148,24 @@ export default {
     searchNews() {
       console.log(this.search);
       const payload = {
-        qInTitle: "",
-        apiKey: "59f5d55a2cfa4c95b4966189fd0698a7",
-        pageSize: 11,
-        page: 1
+        keywords: "",
+        apiKey: "G5My9AEB_PwT8w7c-oPQ6meK_bC1KYPv21FHDhyM903Xapwj",
+        page_size: 11,
+        page_number: 1
       };
       if(this.page){
-        payload["page"] = this.page
+        payload["page_number"] = this.page
       }
       if (this.search) {
-        payload["qInTitle"] = this.search;
+        payload["keywords"] = this.search;
       }
       this.$store
         .dispatch("searchNews", payload)
         .then(({ data }) => {
-          // console.log(data.articles[0], "featured news");
-          // console.log(data.articles.slice(1), "sisanya");
-          this.$store.commit("SET_FEATURED_NEWS", data.articles[0]);
-          this.$store.commit("SET_NEWS_DATA", data.articles.slice(1));
-          this.$store.commit('SET_TOTAL_RESULTS', data.totalResults)
+          console.log(data.news.length, 'INI LENGTH NEWS')
+          this.$store.commit("SET_FEATURED_NEWS", data.news[0]);
+          this.$store.commit("SET_NEWS_DATA", data.news.slice(1));
+          this.$store.commit('SET_TOTAL_RESULTS', data.news.length)
         })
         .catch((error) => {
           console.log(error);

@@ -9,7 +9,7 @@
             <div class="row g-0">
               <div class="col-md-12">
                 <div class="card-body">
-                  <h5 class="card-title">Login Branded Hackthings</h5>
+                  <h5 class="card-title">Login FindMe</h5>
                   <div class="mb-3">
                     <label class="form-label">Email address</label>
                     <input

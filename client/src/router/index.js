@@ -9,6 +9,8 @@ import DetailPage from '../views/DetailPage.vue'
 import LeaderBoardPage from '../views/LeaderBoardPage.vue'
 import ForumPage from '../views/ForumPage.vue'
 import PostRecipePage from '../views/PostRecipePage.vue'
+import NotFoundPage from '@/views/NotFoundPage.vue'
+import Swal from 'sweetalert2'
 
 Vue.use(VueRouter)
 
@@ -58,12 +60,35 @@ const routes = [
     name: 'Post-Recipe-Page',
     component: PostRecipePage
   },
+  {
+    path: '*',
+    name: 'NotFound-Page',
+    component: NotFoundPage
+  }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if(to.name === 'Register-Page' || to.name === 'Home-Page' || to.name === 'Forget-Password-Page' ||  to.name === 'Reset-Password-Page' ||to.name === 'NotFound-Page') {
+    next()
+  } else {
+    if (to.name !== 'Login-Page' && !localStorage.access_token) {
+      next({ name: 'Login-Page' })
+      Swal.fire({
+        icon: 'warning',
+        title: 'Haven\'t Logged in',
+        text: 'Please Login First to access that content!!!'
+      })
+    }
+    else {
+      next()
+    }
+  }
 })
 
 export default router

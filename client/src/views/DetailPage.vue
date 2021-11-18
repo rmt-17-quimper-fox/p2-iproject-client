@@ -1,5 +1,4 @@
 <template>
-<!-- Detail Page -->
 <div class="container-fluid">
     <navbar></navbar>
     <div class="container">
@@ -8,7 +7,6 @@
         </div>
     </div>
 </div>
-<!-- Detail Page -->
 </template>
 
 <script>
@@ -19,6 +17,13 @@ export default {
     components: {
         Navbar,
         DetailContent
+    },
+    created: function() {
+        if(localStorage.access_token) {
+            this.$store.commit('SET_IS_LOGGED_IN', true)
+        } else {
+            this.$store.commit('SET_IS_LOGGED_IN', false)
+        }
     }
 }
 </script>

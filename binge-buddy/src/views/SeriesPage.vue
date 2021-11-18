@@ -76,7 +76,7 @@
                 <div class="col-12">
                   <div class="category-grid-topbar">
                     <div class="row align-items-center">
-                      <div class="col-lg-6 col-md-6 col-12">
+                      <div class="col-lg-12 col-md-12 col-12">
                         <h3 class="title">
                           {{ seriesListDescription }} ({{ pageDesctiption }})
                         </h3>

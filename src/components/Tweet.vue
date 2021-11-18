@@ -29,15 +29,15 @@
                         <div class="p-2 px-3"><span>{{tweet.content}}</span></div>
                         <div class="d-flex justify-content-end socials p-2 py-3">
                             <router-link 
-                                class="fas fa-map-marker-alt " style="font-size:25px;color:blue"
+                                class="fas fa-map-marker-alt " style="font-size:25px;color:#a2d2ff"
                                 tabindex="-1"
                                 aria-disabled="true"
                                 to="/map"
                             ></router-link> 
   
-                            <i @click.prevent="upLikes(tweet.likes+1)" class="fa fa-thumbs-up ms-3" style="font-size:25px;color:blue"> {{tweet.likes}} </i>
-                            <i @click.prevent="upReply(tweet.reply+1)" class="fa fa-share" style="font-size:25px;color:blue"></i>
-                            <i class="fa fa-comments-o" style="font-size:25px;color:blue"> {{tweet.reply}} </i>
+                            <i @click.prevent="upLikes(tweet.likes+1)" class="fa fa-thumbs-up ms-3" style="font-size:25px; color: #a2d2ff"> {{tweet.likes}} </i>
+                            <i @click.prevent="upReply(tweet.reply+1)" class="fa fa-share" style="font-size:25px;color:#a2d2ff"></i>
+                            <i class="fa fa-comments-o" style="font-size:25px;color:#a2d2ff"> {{tweet.reply}} </i>
                         </div>
                     </div>
                     

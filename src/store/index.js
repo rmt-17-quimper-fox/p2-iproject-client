@@ -11,6 +11,7 @@ export default new Vuex.Store({
     tweetLikes: 0,
     tweetReplay: 0,
     locationPost: {},
+    quotes: ""
   },
   mutations: {
     SET_ISLOGIN (state, payload) {
@@ -29,6 +30,9 @@ export default new Vuex.Store({
     },
     SET_LOCATIONPOST (state, payload) {
       state.locationPost = payload
+    },
+    SET_QUOTE (state, payload) {
+      state.quotes = payload
     }
   },
   actions: {
@@ -74,6 +78,23 @@ export default new Vuex.Store({
       .then (({data}) => {
         context.state.tweets
         console.log(`bookmarked`);
+        console.log(data);
+      })
+      .catch ((err) => {
+        console.log(err.response.data);
+      })
+    },
+    getQuote (context) {
+      // const tweets = context.state.tweets
+      axios({
+        method: "GET",
+        url: `/quotes`,
+        headers: {
+          access_token: localStorage.getItem("access_token")
+        }
+      })
+      .then (({data}) => {
+        context.commit('SET_QUOTE', data)
         console.log(data);
       })
       .catch ((err) => {

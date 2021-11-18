@@ -30,13 +30,16 @@
                         <i @click="startSpeechToTxt" class="fas fa-microphone" ></i>
 
                     </li>
+                    <li>
+                        <i @click="postQuote" class="fas fa-quote-right"></i>
+                    </li>
                 </ul>
                 <!-- <div class="content" type="button" >
                     <span class="counter">100</span>
                     
                 </div> -->
                 </div>
-                    <button type="button" @click.prevent="doPostTweet" class="btn btn-info">Tweet</button>
+                    <button type="button" @click.prevent="doPostTweet(content)" class="btn btn-info">Tweet</button>
                     
             </div>
             <!-- <Map></Map> -->
@@ -61,7 +64,7 @@ export default {
         }
     },
     methods : {
-        doPostTweet: function () {
+        doPostTweet: function (content) {
             const payload = {
                 content: this.content,
                 location: this.location
@@ -70,6 +73,7 @@ export default {
             .then(({data}) => {
                 this.$router.push('/')
                 console.log(data);
+                this.$store.commit("SET_TWEETS", content)
             })
             .catch ((err) => {
                 console.log(err.response.data);
@@ -102,6 +106,17 @@ export default {
             });
             recognition.start();
         },
+        postQuote () {
+            this.content = this.$store.state.quotes
+        }
+    },
+    computed: {
+        quotes() {
+            return this.$store.state.quotes;
+        }
+    },
+    created() {
+        this.$store.dispatch("getQuote")
     },
     
 

@@ -3,11 +3,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import VueGeolocation from 'vue-browser-geolocation';
-
+import VueSpeech from 'vue-speech'
 
 Vue.config.productionTip = false
 Vue.use(VueGeolocation);
-
+Vue.use(VueSpeech)
 import * as VueGoogleMaps from 'vue2-google-maps'
 
 Vue.use(VueGoogleMaps, {

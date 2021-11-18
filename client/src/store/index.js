@@ -37,14 +37,14 @@ export default new Vuex.Store({
     fetchNewsList(context, payload){
       return axios({
         method: 'GET',
-        url: 'https://newsapi.org/v2/top-headlines',
+        url: 'https://api.currentsapi.services/v1/latest-news',
         params:payload
       })
     },
     searchNews(context, payload){
       return axios({
         method: 'GET',
-        url: 'https://newsapi.org/v2/everything',
+        url: 'https://api.currentsapi.services/v1/search',
         params: payload
       })
     },

@@ -6,8 +6,6 @@
         <recipe-card v-for="data in recipeData" :key="data.id"
         :id="data.id" :label="data.label" :cuisineType="data.cuisineType"
         :image="data.image" :ingredients="data.ingredientLines"></recipe-card>
-
-        <!-- <recipe-card v-for="(data, idx) in recipeData" :key="idx"></recipe-card> -->
             <div class="d-flex justify-content-center" v-if="isLoggedIn">
                 <nav class="row mt-5" aria-label="Page navigation example">
                     <ul class="pagination pagination-lg">
@@ -87,10 +85,8 @@ export default {
                 this.$store.commit('SET_IS_LOGGED_IN', false)
             }
             const { data } = await this.$store.dispatch('getEdamameRecipe')
-            console.log(data.data)
             this.recipeData = data.data
         } catch (error) {
-            console.log(error.response);
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',

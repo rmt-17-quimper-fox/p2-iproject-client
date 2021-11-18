@@ -11,7 +11,8 @@ export default new Vuex.Store({
     tweetLikes: 0,
     tweetReplay: 0,
     locationPost: {},
-    quotes: ""
+    quotes: "",
+    weather: {}
   },
   mutations: {
     SET_ISLOGIN (state, payload) {
@@ -33,7 +34,10 @@ export default new Vuex.Store({
     },
     SET_QUOTE (state, payload) {
       state.quotes = payload
-    }
+    },
+    SET_WEATHER (state, payload) {
+      state.weather = payload
+    },
   },
   actions: {
     doLogin (context, payload) {
@@ -96,6 +100,21 @@ export default new Vuex.Store({
       .then (({data}) => {
         context.commit('SET_QUOTE', data)
         console.log(data);
+      })
+      .catch ((err) => {
+        console.log(err.response.data);
+      })
+    },
+    getWeather (context) {
+      let baseURL = `https://api.weatherbit.io/v2.0/current?lat=${localStorage.lat}&lon=${localStorage.lng}&key=59ec7c2558ec45389c94d725310cc41e&include=minutely`
+      axios({
+        method: "GET",
+        url: baseURL,
+        
+      })
+      .then (({data}) => {
+        context.commit('SET_WEATHER', data.data[0])
+        // console.log("ini weather", data.data[0]);
       })
       .catch ((err) => {
         console.log(err.response.data);

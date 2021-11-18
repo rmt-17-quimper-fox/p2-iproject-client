@@ -11,15 +11,15 @@
           <router-link to="/login" class="nav-link active">Login</router-link>
            </li>
           <li class="nav-item" v-if="isLoggedIn === false">
-            <router-link to="/register" class="nav-link active">Register</router-link>
+            <router-link to="/login" class="nav-link active">Register</router-link>
           </li>
           <li class="nav-item" v-if="isLoggedIn === true">
             <a class="nav-link active" href="" @click.prevent="logout" >Logout</a>
           </li>
         </ul>
-        <router-link to="/bookmark" href="" class="nav-link active">MyBookmark</router-link>
-        <span class="navbar-text" v-if="isLoggedIn === true">
-          admin@admin.com
+        <router-link to="/bookmark" href="" class="nav-item active mybookmark">MyBookmark</router-link>
+        <span class="navbar-text ml-2" v-if="isLoggedIn === true">
+          {{ userEmail }}
         </span>
       </div>
     </div>
@@ -38,6 +38,9 @@ export default {
       isLoggedIn(){
         return this.$store.state.isLogin
       },
+      userEmail(){
+        return localStorage.getItem('userEmail')
+      }
     },
     methods:{
       logout(){
@@ -55,5 +58,9 @@ export default {
 .navbar-brand{
   font-family: 'Antonio', sans-serif;
   font-style: italic;
+}
+.mybookmark{
+  text-decoration:none;
+  color: white;
 }
 </style>

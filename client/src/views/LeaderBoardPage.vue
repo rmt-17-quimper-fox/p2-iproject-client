@@ -1,5 +1,4 @@
 <template>
-<!-- Leader Board Page -->
 <div class="container-fluid">
     <navbar></navbar>
     <div class="row mt-5">
@@ -23,7 +22,8 @@
                     </thead>
                     <tbody>
                         <leader-board-column
-                        v-for="(data, idx) in leaderBoardData" :key="idx"></leader-board-column>
+                        v-for="(data, idx) in leaderBoardData" :key="data.id"
+                        :position="idx" :username="data.username" :star="data.star"></leader-board-column>
                     </tbody>
             </table>
         </div>
@@ -40,10 +40,10 @@
         </div>
     </div>
 </div>
-<!-- Leader Board Page -->  
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 import Navbar from '@/components/Navbar.vue'
 import LeaderBoardColumn from '@/components/LeaderBoardColumn.vue'
 export default {
@@ -54,7 +54,24 @@ export default {
     },
     data: function() {
         return {
-            leaderBoardData: ['1', '2', '3']
+            leaderBoardData: []
+        }
+    },
+    created: async function() {
+        try {
+            if(localStorage.access_token) {
+                this.$store.commit('SET_IS_LOGGED_IN', true)
+            } else {
+                this.$store.commit('SET_IS_LOGGED_IN', false)
+            }
+            const { data } = await this.$store.dispatch('getLeaderBoard')
+            this.leaderBoardData = data
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something wrong, please refresh!'
+            })
         }
     }
 }

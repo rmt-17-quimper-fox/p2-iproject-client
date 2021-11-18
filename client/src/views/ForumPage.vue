@@ -33,6 +33,13 @@ export default {
         return {
             forumData: ['1', '2', '3']
         }
+    },
+    created: function() {
+        if(localStorage.access_token) {
+            this.$store.commit('SET_IS_LOGGED_IN', true)
+        } else {
+            this.$store.commit('SET_IS_LOGGED_IN', false)
+        }
     }
 }
 </script>

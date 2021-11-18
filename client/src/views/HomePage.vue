@@ -1,39 +1,14 @@
 <template>
-<!-- Home Before Login -->
 <div class="container-fluid">
     <navbar></navbar>
-    <div class="row mt-4">
-        <div class="d-flex justify-content-center">
-            <div class="col-1 mx-4">
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Meal Type</option>
-                    <option value="1">Sarapan</option>
-                    <option value="2">Makan siang</option>
-                    <option value="3">Makan malam</option>
-                </select>
-            </div>
-            <div class="col-1 mx-4">
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Cuisine Type</option>
-                    <option value="1">Makanan Asia</option>
-                    <option value="2">Makanan Eropa</option>
-                    <option value="3">Makanan Anak Kos</option>
-                </select>
-            </div>
-            <div class="col-1 mx-4">
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Diet Type</option>
-                    <option value="1">High-Fiber</option>
-                    <option value="2">Low-fat</option>
-                    <option value="3">Vegan</option>
-                </select>
-            </div>
-        </div>
-    </div>
     <div class="container">
         <div class="row mt-5">
-        <recipe-card v-for="(data, idx) in recipeData" :key="idx"></recipe-card>
-            <div class="d-flex justify-content-center">
+        <recipe-card v-for="data in recipeData" :key="data.id"
+        :id="data.id" :label="data.label" :cuisineType="data.cuisineType"
+        :image="data.image" :ingredients="data.ingredientLines"></recipe-card>
+
+        <!-- <recipe-card v-for="(data, idx) in recipeData" :key="idx"></recipe-card> -->
+            <div class="d-flex justify-content-center" v-if="isLoggedIn">
                 <nav class="row mt-5" aria-label="Page navigation example">
                     <ul class="pagination pagination-lg">
                         <li class="btn page-link">Previos</li>
@@ -47,44 +22,45 @@
         </div>
     </div>
 
-
-    <div class="row my-5">
-        <div class="col-5"><hr style="border-top: 5px solid #000000"></div>
-        <div class="col-2"><h1>Benefit Join Us</h1></div>
-        <div class="col-5"><hr style="border-top: 5px solid #000000"></div>
-    </div>
-    <div class="container mt-5">
-        <div class="row d-flex align-items-center">
-            <div class="col-4">
-                <img src="@/assets/Sharing.jpg" alt="" width="450px">
-            </div>
-            <div class="col-5 mt-3">
-                <div class="row">
-                    <h1>Sharing Each Other</h1>
-                    <p>You can let people know your recipes</p>
-                </div>
-            </div>
+    <div v-if="!isLoggedIn">
+        <div class="row my-5">
+            <div class="col-5"><hr style="border-top: 5px solid #000000"></div>
+            <div class="col-2"><h1>Benefit Join Us</h1></div>
+            <div class="col-5"><hr style="border-top: 5px solid #000000"></div>
         </div>
-        <div class="row d-flex align-items-center">
-            <div class="col-8">
-                <div class="row text-end">
-                    <h1>Be Number One</h1>
-                    <div class="col-7"></div>
-                    <div class="col mt-3">
-                        <p>Get point as many as possible from like of your friends</p>
+        <div class="container mt-5">
+            <div class="row d-flex align-items-center">
+                <div class="col-4">
+                    <img src="@/assets/Sharing.jpg" alt="" width="450px">
+                </div>
+                <div class="col-5 mt-3">
+                    <div class="row">
+                        <h1>Sharing Each Other</h1>
+                        <p>You can let people know your recipes</p>
                     </div>
                 </div>
             </div>
-            <div class="col-2">
-                <img src="@/assets/Compete.jpg" alt="" width="450px">
+            <div class="row d-flex align-items-center">
+                <div class="col-8">
+                    <div class="row text-end">
+                        <h1>Be Number One</h1>
+                        <div class="col-7"></div>
+                        <div class="col mt-3">
+                            <p>Get point as many as possible from like of your friends</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <img src="@/assets/Compete.jpg" alt="" width="450px">
+                </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Home Before Login -->
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 import Navbar from '@/components/Navbar.vue'
 import RecipeCard from '@/components/RecipeCard.vue'
 export default {
@@ -93,9 +69,33 @@ export default {
         Navbar,
         RecipeCard
     },
+    computed: {
+        isLoggedIn: function() {
+            return this.$store.state.isLoggedIn
+        }
+    },
     data: function() {
         return {
-            recipeData: ['1', '2', '3']
+            recipeData: []
+        }
+    },
+    created: async function() {
+        try {
+            if(localStorage.access_token) {
+                this.$store.commit('SET_IS_LOGGED_IN', true)
+            } else {
+                this.$store.commit('SET_IS_LOGGED_IN', false)
+            }
+            const { data } = await this.$store.dispatch('getEdamameRecipe')
+            console.log(data.data)
+            this.recipeData = data.data
+        } catch (error) {
+            console.log(error.response);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something wrong, please refresh!'
+            })
         }
     }
 }

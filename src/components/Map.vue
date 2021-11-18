@@ -49,7 +49,7 @@ export default {
     this.$refs.mapRef.$mapPromise.then(map => this.map = map)
   },
   methods: {
-    
+
   },
   computed: {
     mapCoordinatess () {

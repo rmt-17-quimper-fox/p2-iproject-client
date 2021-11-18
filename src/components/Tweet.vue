@@ -64,7 +64,6 @@ export default {
             this.$store.dispatch("getQrCode", id)
         },
         upLikes (id) {
-            console.log(`upLikes`);
             this.$store.commit('UP_LIKES', id)
         },
     },

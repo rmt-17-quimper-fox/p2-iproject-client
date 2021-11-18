@@ -56,11 +56,8 @@ export default {
                 content: this.content,
                 location: this.location
             }
-            console.log(`pressed`);
-            console.log(payload.content, "12341");
             this.$store.dispatch('postTweet', payload)
             .then(({data}) => {
-                console.log(data, "create Tweet");
                 this.$router.push('/')
             })
             .catch ((err) => {

@@ -1,4 +1,5 @@
 # binge-buddy
+https://binge-buddy-h8.web.app/
 
 ## Project setup
 ```

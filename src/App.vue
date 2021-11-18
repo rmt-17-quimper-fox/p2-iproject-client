@@ -12,6 +12,7 @@
 
 // import Bookmark from '../components/NewsCard.vue'
 // import Map from  './components/Map.vue'
+
 export default {
   name: 'App',
   components: {

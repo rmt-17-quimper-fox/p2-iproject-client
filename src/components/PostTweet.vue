@@ -22,7 +22,14 @@
                     <li><i class="far fa-file-image"></i></li> -->
                     <!-- <li><i class="far fa-grin"></i></li>
                     <li><i class="far fa-user"></i></li> -->
-                    <i class="fas fa-map-marker-alt "></i>
+                    <li>
+
+                        <i class="fas fa-map-marker-alt "></i>
+                    </li>
+                    <li>
+                        <i @click="startSpeechToTxt" class="fas fa-microphone" ></i>
+
+                    </li>
                 </ul>
                 <!-- <div class="content" type="button" >
                     <span class="counter">100</span>
@@ -48,6 +55,9 @@ export default {
         return {
             content: "",
             location: "",
+            runtimeTranscription_: "",
+            transcription_: [],
+            lang_: "en-US"
         }
     },
     methods : {
@@ -64,8 +74,36 @@ export default {
             .catch ((err) => {
                 console.log(err.response.data);
             })
-        }
+        },
+        startSpeechToTxt() {
+            // initialisation of voicereco
+        
+            window.SpeechRecognition =
+            window.SpeechRecognition || 
+            window.webkitSpeechRecognition;
+            const recognition = new window.SpeechRecognition();
+            recognition.lang = this.lang_;
+            recognition.interimResults = true;
+
+            // event current voice reco word
+            recognition.addEventListener("result", event => {      
+                var text = Array.from(event.results)
+                    .map(result => result[0])
+                    .map(result => result.transcript)
+                    .join("");
+                this.runtimeTranscription_ = text;
+                this.content = text;
+            });
+            // end of transcription
+            recognition.addEventListener("end", () => {
+                this.transcription_.push(this.runtimeTranscription_);
+                this.runtimeTranscription_ = "";
+                recognition.stop();
+            });
+            recognition.start();
+        },
     },
+    
 
 
 }

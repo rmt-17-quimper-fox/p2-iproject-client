@@ -9,7 +9,8 @@ export default new Vuex.Store({
     isLogin: false,
     tweets: [],
     tweetLikes: 0,
-    tweetReplay: 0
+    tweetReplay: 0,
+    locationPost: {},
   },
   mutations: {
     SET_ISLOGIN (state, payload) {
@@ -27,6 +28,9 @@ export default new Vuex.Store({
     SET_BOOKMARKS (state, payload) {
       state.bookmarks = payload
     },
+    SET_LOCATIONPOST (state, payload) {
+      state.locationPost = payload
+    }
   },
   actions: {
     doLogin (context, payload) {

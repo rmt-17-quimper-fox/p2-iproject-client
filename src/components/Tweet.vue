@@ -28,7 +28,14 @@
                         </div>
                         <div class="p-2 px-3"><span>{{tweet.content}}</span></div>
                         <div class="d-flex justify-content-end socials p-2 py-3">
-                            <i @click.prevent="upLikes(tweet.likes+1)" class="fa fa-thumbs-up" style="font-size:25px;color:red"> {{tweet.likes}} </i>
+                            <router-link 
+                                class="fas fa-map-marker-alt " style="font-size:25px;color:red"
+                                tabindex="-1"
+                                aria-disabled="true"
+                                to="/map"
+                            ></router-link> 
+  
+                            <i @click.prevent="upLikes(tweet.likes+1)" class="fa fa-thumbs-up ms-3" style="font-size:25px;color:red"> {{tweet.likes}} </i>
                             <i @click.prevent="upReply(tweet.reply+1)" class="fa fa-share" style="font-size:25px;color:red"></i>
                             <i class="fa fa-comments-o" style="font-size:25px;color:red"> {{tweet.reply}} </i>
                         </div>

@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+      <!-- <Map></Map> -->
     <div id="nav">
       <!-- <Navbar></Navbar> -->
     </div>
@@ -10,12 +11,13 @@
 // import Navbar from './components/Navbar.vue'
 
 // import Bookmark from '../components/NewsCard.vue'
-
+// import Map from  './components/Map.vue'
 export default {
   name: 'App',
   components: {
     // Navbar,
     // Bookmark,
+    // Map
   },
   
 }

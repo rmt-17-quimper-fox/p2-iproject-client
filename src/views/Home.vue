@@ -1,18 +1,35 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <navbar></navbar>
+    <filter-home></filter-home>
+    <div class="footer">
+      <HFooter></HFooter>
+    </div>
   </div>
 </template>
 
 <script>
+import FilterHome from '../components/FilterHome.vue';
+import Navbar from '../components/Navbar.vue';
+import HFooter from 'vue-hacktiv8-footer';
+
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld,
+  components: { Navbar, FilterHome, HFooter },
+  created() {
+    if (localStorage.getItem('access_token')) {
+      this.$store.commit('LOGIN_PAGE', true);
+    }
   },
 };
 </script>
+
+<style scoped>
+.footer {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
+</style>

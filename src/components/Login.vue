@@ -44,8 +44,9 @@
                   <router-link
                     :to="{ name: 'Register' }"
                     @click.prevent="changePage('register')"
-                    class="link-primary cursor-pointer"
+                    class="link-primary cursor-pointer text-center"
                     id="register-here"
+                    style="align-item:center;"
                   >
                     Haven't got account?Register Here!
                   </router-link>
@@ -60,6 +61,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 import GoogleLogin from "vue-google-login";
 export default {
   name: "Login",
@@ -97,10 +99,14 @@ export default {
           localStorage.setItem("access_token", access_token);
           localStorage.setItem('userId', response.data.id)
           this.$store.commit("SETLOGIN", response.data.id);
+
           this.$router.push({ name: "Home" });
+          Swal.fire('Welcome to Find Me App!')
         })
         .catch((err) => {
           console.log(err.response);
+          // Swal.fire(err.response.data.message)
+
         });
     },
     onSuccess(googleUser) {
@@ -128,4 +134,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+</style>

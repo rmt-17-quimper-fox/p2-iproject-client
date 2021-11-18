@@ -42,6 +42,8 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
+
 export default {
     name : 'Register',
     data : function(){
@@ -70,10 +72,13 @@ export default {
             this.$store.dispatch('register')
                 .then(response => {
                     console.log(response);
+                    Swal.fire('Success Register')
                     this.$router.push({name : "Login"})
                 })
                 .catch(err => {
-                    console.log(err);
+                    console.log(err.response.data.message);
+                    Swal.fire(err.response.data.message)
+
                 })
         }
     }

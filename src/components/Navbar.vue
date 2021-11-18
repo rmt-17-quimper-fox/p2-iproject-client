@@ -66,6 +66,8 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
+
 export default {
   name: "Navbar",
   methods: {
@@ -75,6 +77,8 @@ export default {
     logout() {
       localStorage.clear();
       this.$store.dispatch("logoutUser");
+      Swal.fire('Thankyou for using Find Me App')
+
       this.$router.push({ name: "Login" });
     },
     leave() {
@@ -84,10 +88,14 @@ export default {
         .then((response) => {
           console.log(response);
           localStorage.roomId  = null
+          Swal.fire('Thankyou for visiting this room')
+
           this.$router.push({ name: "ListRoom" });
         })
         .catch((err) => {
           console.log(err.response);
+          Swal.fire(err.response.data.message)
+
         });
     },
   },
@@ -102,4 +110,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+a{
+  cursor: pointer;
+}
+</style>

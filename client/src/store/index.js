@@ -59,7 +59,6 @@ export default new Vuex.Store({
       return axios(options)
     },
     getEdamameRecipeById(_, id) {
-      console.log(id);
       return axios({
         method: 'GET',
         url: `/edamame/${id}`,

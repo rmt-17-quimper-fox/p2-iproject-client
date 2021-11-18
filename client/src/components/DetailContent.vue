@@ -101,7 +101,6 @@ export default {
             }
             const id = this.$route.params.id
             const recipeById = await this.$store.dispatch('getEdamameRecipeById', id)
-            console.log(recipeById);
             const searchText = recipeById.data.label
             const videoRecipe = await this.$store.dispatch('getYoutubeRecipe', searchText)
             this.recipeDetail = recipeById.data

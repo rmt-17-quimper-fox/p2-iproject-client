@@ -136,8 +136,8 @@ export default {
       this.$store
         .dispatch("fetchNewsList", payload)
         .then(({ data }) => {
-          console.log(data.articles[0], "featured news");
-          console.log(data.articles.slice(1), "sisanya");
+          // console.log(data.articles[0], "featured news");
+          // console.log(data.articles.slice(1), "sisanya");
           this.$store.commit("SET_FEATURED_NEWS", data.articles[0]);
           this.$store.commit("SET_NEWS_DATA", data.articles.slice(1));
           this.$store.commit('SET_TOTAL_RESULTS', data.totalResults)
@@ -163,8 +163,8 @@ export default {
       this.$store
         .dispatch("searchNews", payload)
         .then(({ data }) => {
-          console.log(data.articles[0], "featured news");
-          console.log(data.articles.slice(1), "sisanya");
+          // console.log(data.articles[0], "featured news");
+          // console.log(data.articles.slice(1), "sisanya");
           this.$store.commit("SET_FEATURED_NEWS", data.articles[0]);
           this.$store.commit("SET_NEWS_DATA", data.articles.slice(1));
           this.$store.commit('SET_TOTAL_RESULTS', data.totalResults)
@@ -189,7 +189,7 @@ export default {
 
       // event voice recording
       recognition.addEventListener("result", event => {
-        console.log(event.results)
+        // console.log(event.results)
         const text = Array.from(event.results)
           .map(result => result[0])
           .map(result => result.transcript)

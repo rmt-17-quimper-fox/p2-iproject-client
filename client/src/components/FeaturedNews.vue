@@ -33,7 +33,6 @@ export default {
         description: this.featuredNews.description,
         link: this.featuredNews.url,
       };
-      console.log(payload);
       this.$store
         .dispatch("postBookmark", payload)
         .then(() => {

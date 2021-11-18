@@ -1,7 +1,7 @@
 import axios from "axios";
 // "http://localhost:3000"
-//https://denis-news-cms.herokuapp.com
+//https://new-source-web-app.herokuapp.com/
 
 export default axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: "https://new-source-web-app.herokuapp.com/",
   });

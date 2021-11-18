@@ -27,7 +27,12 @@ const routes = [
     path:'/bookmark',
     name: 'Bookmark',
     component: () => import('../views/Bookmark.vue')
-  }
+  },
+  {
+    path:'*',
+    name: 'NotFound',
+    component: () => import('../views/NotFound.vue')
+  },
 ]
 
 const router = new VueRouter({

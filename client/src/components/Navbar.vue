@@ -62,5 +62,6 @@ export default {
 .mybookmark{
   text-decoration:none;
   color: white;
+  margin-right: 20px;
 }
 </style>

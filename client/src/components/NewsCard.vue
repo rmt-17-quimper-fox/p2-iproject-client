@@ -29,6 +29,7 @@ export default {
     },
     methods:{
       postBookmark(){
+        console.log(payload)
         const payload = {
           title: this.news.title,
           imageUrl: this.news.urlToImage,
@@ -41,6 +42,7 @@ export default {
             this.$swal('Bookmark successfully added')
           })
           .catch((err) => {
+            console.log(err)
             this.$swal(err.response)
           })
       }

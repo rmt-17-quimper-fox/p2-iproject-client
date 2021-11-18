@@ -59,6 +59,7 @@ export default {
             this.$store.dispatch('postTweet', payload)
             .then(({data}) => {
                 this.$router.push('/')
+                console.log(data);
             })
             .catch ((err) => {
                 console.log(err.response.data);

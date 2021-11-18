@@ -10,7 +10,8 @@ export default new Vuex.Store({
     featuredNews: [],
     newsData:[],
     bookmarkData:[],
-    totalResults:0
+    totalResults:0,
+    randomCatUrl:""
   },
   mutations: {
     SET_IS_LOGIN (state, payload){
@@ -27,6 +28,9 @@ export default new Vuex.Store({
     },
     SET_TOTAL_RESULTS (state, payload){
       state.totalResults = payload
+    },
+    SET_RANDOM_CAT(state, payload){
+      state.randomCatUrl = payload
     }
   },
   actions: {
@@ -70,6 +74,12 @@ export default new Vuex.Store({
         data: {
           access_token: payload
         }
+      })
+    },
+    getRandomCat(){
+      return axios({
+        method: 'GET',
+        url:'https://thatcopy.pw/catapi/rest/'
       })
     }
   },

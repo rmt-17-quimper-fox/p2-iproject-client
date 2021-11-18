@@ -29,6 +29,7 @@
                         <div class="p-2 px-3"><span>{{tweet.content}}</span></div>
                         <div class="d-flex justify-content-end socials p-2 py-3">
                             <router-link 
+                                
                                 class="fas fa-map-marker-alt " style="font-size:25px;color:#a2d2ff"
                                 tabindex="-1"
                                 aria-disabled="true"
@@ -66,6 +67,10 @@ export default {
         upLikes (id) {
             this.$store.commit('UP_LIKES', id)
         },
+        // getWeather () {
+        //     this.$store.dispatch("getWeather")
+        //     // console.log(`12312312`);
+        // }
     },
     computed: {
         tweets() {

@@ -4,7 +4,7 @@
                 <div class="input-box">
                 <div  class="tweet-area">
                     <span class="placeholder"></span>
-                    <textarea name="" id="" cols="47" rows="10" 
+                    <textarea name="" id="" cols="80" rows="10" 
                         v-model="content" class="input editable" contenteditable="true" spellcheck="false"
                         style="width: auto; border: none" 
                     ></textarea>

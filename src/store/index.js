@@ -12,6 +12,7 @@ export default new Vuex.Store({
     shoes: [],
     carts: [],
     city: [],
+    ongkir: 0,
   },
   mutations: {
     LOGIN_PAGE(state, payload) {
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     },
     FETCH_CITY(state, payload) {
       state.city = payload;
+    },
+    ONGKIR(state, payload) {
+      state.ongkir = payload;
     },
   },
   actions: {
@@ -195,6 +199,25 @@ export default new Vuex.Store({
         context.commit('FETCH_CITY', dataCity);
       } catch (error) {
         console.log(error.response);
+      }
+    },
+    async cekOngkir(context, payload) {
+      try {
+        const response = await axios({
+          url: `http://localhost:3000/rajaOngkir
+          `,
+          method: 'POST',
+          data: payload,
+        });
+
+        let ongkir = response.data.ongkir;
+        context.commit('ONGKIR', ongkir);
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+        });
       }
     },
   },

@@ -15,7 +15,7 @@
           <RowCartList v-for="cart in carts" :key="cart.id" :cart="cart" />
           <tr>
             <td></td>
-            <td>Ongkir:</td>
+            <td>Ongkir: Rp.{{ ongkir }}</td>
             <td>Total Price:</td>
             <td>
               <button
@@ -64,7 +64,7 @@
         placeholder="Weigth in grams"
       />
       <br />
-      <label for="Weight"><b>Weight</b></label>
+      <label for="courier"><b>Weight</b></label>
       <br />
       <input
         type="text"
@@ -115,6 +115,9 @@ export default {
     cities() {
       return this.$store.state.city;
     },
+    ongkir() {
+      return this.$store.state.ongkir;
+    },
   },
   created() {
     this.$store.dispatch('fetchCarts');
@@ -124,7 +127,15 @@ export default {
     buyButton() {
       this.$router.push('/paypal');
     },
-    cekOngkir() {},
+    cekOngkir() {
+      const obj = {
+        origin: this.origin,
+        destination: this.destination,
+        weight: this.weight,
+        courier: this.courier,
+      };
+      this.$store.dispatch('cekOngkir', obj);
+    },
   },
 };
 </script>

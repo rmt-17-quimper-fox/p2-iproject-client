@@ -68,7 +68,8 @@
 
 <script>
 import Swal from 'sweetalert2';
-
+import { getAuth } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
 export default {
   name: 'Navbar',
   data() {
@@ -86,6 +87,20 @@ export default {
       this.$router.push('/login');
     },
     logout() {
+      const firebaseConfig = {
+        apiKey: 'AIzaSyCYddnRICqYBhxuV_NPasa4y6IJn6G-iKQ',
+        authDomain: 'iproject-71f4c.firebaseapp.com',
+        projectId: 'iproject-71f4c',
+        storageBucket: 'iproject-71f4c.appspot.com',
+        messagingSenderId: '57476022832',
+        appId: '1:57476022832:web:25f80386129c6886f063f5',
+        measurementId: 'G-LFWWXPKCV1',
+      };
+      const app = initializeApp(firebaseConfig);
+
+      const auth2 = getAuth(app);
+      auth2.signOut();
+
       this.$store.dispatch('logout');
       localStorage.clear();
       Swal.fire({

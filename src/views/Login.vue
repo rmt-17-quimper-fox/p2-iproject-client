@@ -69,11 +69,7 @@
 
 <script>
 import { initializeApp } from 'firebase/app';
-import {
-  getAuth,
-  GoogleAuthProvider,
-  FacebookAuthProvider,
-} from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth';
 import 'firebaseui/dist/firebaseui.css';
 
 import { auth } from 'firebaseui';
@@ -93,6 +89,7 @@ export default {
     };
   },
   mounted() {
+    const self = this.$router;
     const firebaseConfig = {
       apiKey: 'AIzaSyCYddnRICqYBhxuV_NPasa4y6IJn6G-iKQ',
       authDomain: 'iproject-71f4c.firebaseapp.com',
@@ -108,17 +105,26 @@ export default {
     var ui = new auth.AuthUI(auth2);
     ui.start('#firebaseui-auth-container', {
       callbacks: {
-        signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-          console.log(redirectUrl);
-
+        signInSuccessWithAuthResult: function (authResult) {
+          let email = '';
+          if (authResult.additionalUserInfo.providerId == 'github.com') {
+            email = authResult.additionalUserInfo.profile.email;
+          } else {
+            email = authResult.user.email;
+          }
+          authResult.user.email = email;
           axios({
             url: 'http://localhost:3000/firebase-login',
-            methods: 'POST',
-            data: authResult.user.email,
+            method: 'POST',
+            data: authResult.user,
           })
-            .then((data) => {
-              // localStorage.setItem('access_token', data.access_token);
-              console.log(data);
+            .then((response) => {
+              const token = response.data.access_token;
+              const id = response.data.id;
+
+              localStorage.setItem('access_token', token);
+              localStorage.setItem('id', id);
+              self.push('/');
             })
             .catch((err) => {
               console.log(err.response);
@@ -129,6 +135,9 @@ export default {
           // or whether we leave that to developer to handle.
           return false;
         },
+        signInFailure: function (error) {
+          console.log(error);
+        },
         uiShown: function () {
           // The widget is rendered.
           // Hide the loader.
@@ -137,7 +146,7 @@ export default {
       },
       signInOptions: [
         GoogleAuthProvider.PROVIDER_ID,
-        FacebookAuthProvider.PROVIDER_ID,
+        GithubAuthProvider.PROVIDER_ID,
       ],
       // Other config options...
     });
